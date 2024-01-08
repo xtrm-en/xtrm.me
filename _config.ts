@@ -30,6 +30,7 @@ import "https://deno.land/x/vento@v0.9.1/prism-vento.js";
 import { format } from "lume/deps/date.ts";
 
 import a11yEmoji from 'npm:@fec/remark-a11y-emoji';
+import emoji from 'npm:remark-emoji';
 
 const site = lume({
   location: new URL("https://blog.xtrm.me/"),
@@ -85,7 +86,7 @@ site
   }))
   .use(jsx())
   .use(mdx({
-    remarkPlugins: [a11yEmoji],
+    remarkPlugins: [a11yEmoji, emoji],
     rehypePlugins: [],
   }))
   .use(resolveUrls())
