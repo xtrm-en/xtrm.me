@@ -90,7 +90,7 @@ site
     rehypePlugins: [],
   }))
   .use(resolveUrls())
-  .use(lightningCss())
+  //.use(lightningCss())
   /*.use(multilanguage({
     languages: ["en", "fr"],
   }))*/
