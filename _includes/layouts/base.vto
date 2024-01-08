@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang={{ it.lang || "en" }}>
+<head>
+  {{ include './meta/seo.vto' }}
+  {{ include './meta/default.vto' }}
+  <title>{{ it.title || "welcome"}} &mdash; {{ site_title }}</title>
+  {{ it.extra_head || "" }}
+</head>
+<body class="flex justify-center">
+  <div class="w-full flex justify-center align-center items-center flex-col text-base max-w-prose">
+    {{ include "./sub/navbar.vto" }}
+    <div class="x-content">
+      {{ content |> safe }}
+    </div>
+  </div>
+</body>
+</html>
