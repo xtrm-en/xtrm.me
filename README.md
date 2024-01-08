@@ -11,7 +11,7 @@ i swear i'm actually trying to make this nice i spent all night barely putting i
 `deno task serve`
 
 ## serve on CF Pages
-`curl -fsSL https://deno.land/x/install/install.sh | sh && sed -i "s/develop$/$(git log -1 --format='%h')" _data.yml && /opt/buildhome/.deno/bin/deno task build`
+`curl -fsSL https://deno.land/x/install/install.sh | sh && sed -i "s/develop$/$(git log -1 --format='%h')/" _data.yml && /opt/buildhome/.deno/bin/deno task build`
 
 ## license
 ARR for now, we'll see if i get bored one day and put a license file in here
