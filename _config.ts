@@ -44,6 +44,9 @@ site.preprocess([".html"], (pages) => {
   for (const page of pages) {
     // Post hierarchy based on date
     if (page.data.url.startsWith("/posts/")) {
+      if (page.data.type === undefined) {
+        page.data.type = "post";
+      }
       page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM/dd")}/`);
     }
     /* nevermind this breaks everything
@@ -106,15 +109,15 @@ site
   .use(slugifyUrls({ alphanumeric: false }))
   .use(feed({
     output: ["/feed.json", "/feed.xml"],
-    query: "type=posts",
-    info: {
-      title: "=site.title",
-      description: "=site.description",
-    },
-    items: {
-      title: "=title",
-      content: "$.post-body",
-    },
+    query: "type=post",
+    // info: {
+    //   title: "=site.title",
+    //   description: "=site.description",
+    // },
+    // items: {
+    //   title: "=title",
+    //   content: "$.post-body",
+    // },
   }))
   .use(jsx())
   .use(mdx({
