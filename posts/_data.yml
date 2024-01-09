@@ -1,1 +1,5 @@
 layout: layouts/post.vto
+type: post
+
+metas:
+  title: "=title"

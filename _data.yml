@@ -1,7 +1,9 @@
 layout: layouts/base.vto
 site_title: "x's weird webspace"
-git_commit: develop
+site_desc: "hacking away at random and useless stuff I find cool :3"
+type: page
 lang: en
+git_commit: develop
 
 metas:
   site: "=site_title"

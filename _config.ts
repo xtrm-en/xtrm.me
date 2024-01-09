@@ -45,10 +45,7 @@ site.preprocess([".html"], (pages) => {
   for (const page of pages) {
     // Post hierarchy based on date
     if (page.data.url.startsWith("/posts/")) {
-      if (page.data.type === undefined) {
-        page.data.type = "post";
-      }
-      page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM/dd")}/`);
+      page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM")}/`);
     }
     if (page.src.path.startsWith("/pages/")) {
       page.data.url = page.data.url.replace("/pages/", "/");
@@ -156,18 +153,6 @@ site
     },
   }))*/
   .use(slugifyUrls({ alphanumeric: false }))
-  .use(feed({
-    output: ["/feed.json", "/feed.xml"],
-    query: "type=post",
-    // info: {
-    //   title: "=site.title",
-    //   description: "=site.description",
-    // },
-    // items: {
-    //   title: "=title",
-    //   content: "$.post-body",
-    // },
-  }))
   .use(jsx())
   .use(mdx({
     remarkPlugins: [emoji, a11yEmoji],
@@ -176,6 +161,18 @@ site
   .use(metas())
   .use(resolveUrls())
   .use(lightningCss())
+  .use(feed({
+    output: ["/feed.json", "/feed.xml"],
+    query: "type=post",
+    info: {
+      title: "=site_title",
+      description: "=site_desc",
+    },
+    items: {
+      title: "=title",
+      content: "$ #post-content",
+    },
+  }))
   /*.use(multilanguage({
     languages: ["en", "fr"],
   }))*/
