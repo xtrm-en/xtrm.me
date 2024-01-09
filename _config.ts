@@ -91,6 +91,16 @@ site.preprocess([".md", ".mdx"], (pages) => {
     }
   }
 });
+site.preprocess([".html"], (pages) => {
+  for (const page of pages) {
+    if (page.data.title === undefined) {
+      throw new Error(`Page ${page.src.path} has no title`);
+    }
+    if (page.data.desc === undefined) {
+      throw new Error(`Page ${page.src.path} has no description`);
+    }
+  }
+});
 site.process([".html"], (pages) => {
   for (const page of pages) {
     // Add a class to all inline code blocks
