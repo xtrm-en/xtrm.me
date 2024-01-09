@@ -23,11 +23,13 @@ p, h1, h2, h3, h4, h5, h6, a {
 }
 
 header nav li::marker {
-    content: "";
+    content: "./";
     color: #000;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 250ms;
 }
 
 header nav li:hover::marker {
-    content: "./";
     color: #fff;
 }
