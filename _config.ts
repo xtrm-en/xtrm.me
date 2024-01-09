@@ -164,11 +164,12 @@ site
   .use(lightningCss())
   .use(minifyHTML())
   .use(feed({
-    output: ["/feed.json", "/feed.xml"],
+    output: ["/feed.json", "/feed.xml", "/feed.rss"],
     query: "type=post",
     info: {
       title: "=site_title",
       description: "=site_desc",
+      published: new Date(),
     },
     items: {
       title: "=title",
