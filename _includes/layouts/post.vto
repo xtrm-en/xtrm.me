@@ -1,0 +1,20 @@
+---
+layout: layouts/base.vto
+---
+<div id="post">
+  <h1>{{ it.title || "missing title you goof" }}</h1>
+  <p>{{ it.desc || "missing desc dumbass" }} <br> <i>from {{ it.date |> date("dd/MM/yyyy") }}, by {{ it.author || "xtrm" }} &mdash; {{ readingInfo.minutes }}m read</i></p>
+  {{ if it.tags }}
+  <div class="inline flex flex-row gap-2">
+  {{ for tag of it.tags }}
+    <code>{{ tag }}</code>
+  {{ /for }}
+  </div>
+  {{ /if }}
+  <br>
+  {{ include "./comp/sep-full.vto" }}
+  <br>
+  <div id="post-content">
+    {{ content |> safe }}
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang={{ it.lang || "en" }}>
 <head>
-  {{ include './meta/seo.vto' }}
+  {{# {{ include './meta/seo.vto' }} #}}
   {{ include './meta/default.vto' }}
   <title>{{ it.title || "welcome"}} &mdash; {{ it.site_title }}</title>
   {{ it.extra_head || "" }}
@@ -10,11 +10,10 @@
   <div class="w-full max-w-prose text-xs sm:text-base flex justify-center align-center items-center flex-col">
     {{ include "./sub/navbar.vto" }}
     {{ include "./comp/sep.vto" }}
-    <div class="my-6 x-content w-full max-w-prose">
-      <h1>{{ it.desc || "" }}</h1>
+    <div id="base-content" class="my-6 x-content w-full max-w-prose">
       {{ content |> safe }}
     </div>
-    {{ include "./comp/sep.vto" }}
+    {{ include "./comp/sep-full.vto" }}
     {{ include "./sub/footer.vto" }}
   </div>
 </body>

@@ -1,13 +1,14 @@
 import lume from "lume/mod.ts";
 import date from "lume/plugins/date.ts";
+import metas from "lume/plugins/metas.ts";
 import postcss from "lume/plugins/postcss.ts";
 import tailwindcss from "lume/plugins/tailwindcss.ts";
 import prism from "lume/plugins/prism.ts";
 import basePath from "lume/plugins/base_path.ts";
 import slugifyUrls from "lume/plugins/slugify_urls.ts";
 import resolveUrls from "lume/plugins/resolve_urls.ts";
-import pageFind from "lume/plugins/pagefind.ts";
 import lightningCss from "lume/plugins/lightningcss.ts";
+import readInfo from "lume/plugins/reading_info.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import feed from "lume/plugins/feed.ts";
 import jsx from "lume/plugins/jsx.ts";
@@ -49,10 +50,45 @@ site.preprocess([".html"], (pages) => {
       }
       page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM/dd")}/`);
     }
+    if (page.src.path.startsWith("/pages/")) {
+      page.data.url = page.data.url.replace("/pages/", "/");
+    }
+    if (page.src.path.startsWith("/projects/")) {
+      // idk
+    }
     /* nevermind this breaks everything
     if (page.data.url.endsWith("/") && page.data.url !== "/") {
       page.data.url = page.data.url.replace(/\/$/, "");
     }*/
+  }
+});
+// Fix post headings: if we detect usage of a # heading, we replace all subsequent headings with a lower level
+site.preprocess([".md", ".mdx"], (pages) => {
+  for (const page of pages) {
+    if (page.data.type === "post") {
+      if (page.data.content !== undefined) {
+        const content: string = page.data.content?.toString() || "";
+        const lines = content.split("\n");
+        let shouldReplace = false;
+        for (const line of lines) {
+          if (line.startsWith("# ")) {
+            shouldReplace = true;
+            break
+          }
+        }
+        if (shouldReplace) {
+          let newContent = "";
+          for (const line of lines) {
+            if (line.startsWith("#")) {
+              newContent += line.replace("# ", "## ") + "\n";
+            } else {
+              newContent += line + "\n";
+            }
+          }
+          page.data.content = newContent;
+        }
+      }
+    }
   }
 });
 site.process([".html"], (pages) => {
@@ -100,6 +136,9 @@ site
   .use(postcss())
   .use(date())
   .use(basePath())
+  .use(readInfo({
+    extensions: [".md", ".vto", ".html", ".mdx"],
+  }))
   .use(sitemap())/*
   .use(pageFind({
     ui: {
@@ -124,6 +163,7 @@ site
     remarkPlugins: [emoji, a11yEmoji],
     rehypePlugins: [],
   }))
+  .use(metas())
   .use(resolveUrls())
   .use(lightningCss())
   /*.use(multilanguage({

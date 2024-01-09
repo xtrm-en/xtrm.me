@@ -1,3 +1,15 @@
 layout: layouts/base.vto
 site_title: x's weird webspace
 git_commit: develop
+lang: en
+desc: "Hacking away at random and useless stuff I find interesting :3"
+title: "=site_title"
+
+metas:
+  site: "=site_title"
+  title: "=title"
+  description: "=desc"
+  twitter: "@xtrmdev"
+  icon: "/favicon.ico"
+  lang: "=lang"
+  generator: true
