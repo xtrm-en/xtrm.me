@@ -10,6 +10,7 @@ metas:
   title: "=title"
   description: "=desc"
   twitter: "@xtrmdev"
-  icon: "/favicon.ico"
+  icon: "/icons/android-chrome-384x384.png"
+  image: "/img/logo.png"
   lang: "=lang"
   generator: true

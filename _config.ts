@@ -172,6 +172,7 @@ site
     },
     items: {
       title: "=title",
+      description: "=desc",
       content: "$ #post-content",
     },
   }))
