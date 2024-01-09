@@ -11,6 +11,5 @@ metas:
   description: "=desc"
   twitter: "@xtrmdev"
   icon: "/icons/android-chrome-384x384.png"
-  image: "/img/logo.png"
   lang: "=lang"
   generator: true
