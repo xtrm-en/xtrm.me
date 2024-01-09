@@ -1,6 +1,16 @@
 body {
     background-color: #000;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: ui-monospace,
+            'JetBrains Mono', 
+             Menlo, Monaco, 
+             "Cascadia Mono", "Segoe UI Mono", 
+             "Roboto Mono", 
+             "Oxygen Mono", 
+             "Ubuntu Monospace", 
+             "Source Code Pro",
+             "Fira Mono", 
+             "Droid Sans Mono", 
+             "Courier New", monospace;
     color: #fff;
 }
 
