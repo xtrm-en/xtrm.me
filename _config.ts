@@ -11,6 +11,7 @@ import lightningCss from "lume/plugins/lightningcss.ts";
 import readInfo from "lume/plugins/reading_info.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import feed from "lume/plugins/feed.ts";
+import minifyHTML from "lume/plugins/minify_html.ts";
 import jsx from "lume/plugins/jsx.ts";
 import mdx from "lume/plugins/mdx.ts";
 
@@ -162,6 +163,7 @@ site
   .use(metas())
   .use(resolveUrls())
   .use(lightningCss())
+  .use(minifyHTML())
   .use(feed({
     output: ["/feed.json", "/feed.xml"],
     query: "type=post",
