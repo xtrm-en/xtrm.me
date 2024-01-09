@@ -7,10 +7,10 @@
   {{ it.extra_head || "" }}
 </head>
 <body class="h-screen mx-4 flex items-center flex-col">
-  <div class="w-full max-w-prose text-xs sm:text-base flex justify-center align-center items-center flex-col">
+  <div class="w-full max-w-[95ch] text-xs sm:text-base flex justify-center align-center items-center flex-col">
     {{ include "./sub/navbar.vto" }}
     {{ include "./comp/sep.vto" }}
-    <div id="base-content" class="my-6 x-content w-full max-w-prose">
+    <div id="base-content" class="my-6 x-content w-full">
       {{- content |> safe -}}
     </div>
     {{ include "./comp/sep-full.vto" }}
