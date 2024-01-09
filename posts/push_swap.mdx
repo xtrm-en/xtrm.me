@@ -1,0 +1,228 @@
+---
+title: "push_swap, a 42 project"
+desc: "Because some smartass thought `sort()` was too easy..."
+date: 2024-01-09
+link: https://github.com/27network/push_swap
+tags: 
+- C
+- 42-project
+- writeup
+---
+
+## 📖 prelude
+
+This is a project I did for my school [42 Angoulême][42angouleme].
+
+The goal was to sort a list of integers given as program arguments, and then sort them via a limited set of instructions.
+
+This would naturally involve some kind of sorting algorithm, although we would need to make it ourselves, or at least adapt a known one to the rules...  
+That may prove to be quite the challenge depending on which algorithm you thought of first :^) 
+
+##### *(bogosort ftw)*
+
+## 📏 the rules
+
+The rules are as follows:
+
+- You have two stacks, A and B.
+- At the start of the program, A is filled with a random **set** of integers, and B is empty.
+  - The set is guaranteed to be unique, meaning no duplicates. The numbers can be negative, positive, or zero, as long as they fit in an `int`.
+- You must sort A in ascending order using the following instructions:
+  - `sa`: swap the first two elements of A.
+  - `sb`: swap the first two elements of B.
+  - `pa`: move the first element of B to the beginning of A.
+  - `pb`: move the first element of A to the beginning of B.
+  - `ra`: rotate A: move A's first element to its end.
+  - `rb`: rotate B: move B's first element to its end.
+  - `rra`: reverse rotate A: move A's last element to its beginning.
+  - `rrb`: reverse rotate B: move B's last element to its beginning.
+  - `ss`: `sa` and `sb` at the same time.
+  - `rr`: `ra` and `rb` at the same time.
+  - `rrr`: `rra` and `rrb` at the same time.
+- You must display the instructions used to sort A, with a newline at the end.
+
+## 🔥⬇️🕳️ jumping in!
+
+so... how do we do this? where do we start?
+
+### 🔨 the struct
+
+Well first we have to implement some sort of structure to hold our stack data; let's define it as `t_stack`:
+
+```c
+typedef struct s_stack
+{
+  int     *values;
+  size_t  size;
+  size_t  capacity;
+} t_stack;
+```
+##### *reminder that I'm bound to write C according to the [norm], which can prove quite painful sometimes...*
+
+So let's break this down:
+
+- `values` is a pointer to the first element of the stack, which is an array of `int`s.
+- `size` is the number of elements currently in the stack.
+- `capacity` is the maximum number of elements the stack can hold, basically how much we told `malloc` to give us.
+
+The `capacity` of both our stacks (A and B) will always be the same `n`, since to consider all scenarios,
+A or B could be filled with `n` values at some point; this will ensure us that we can always store what we need.
+
+### 🖊️ the instructions..?
+
+Now that we have our structure, we need to implement the instructions, maybe by making simple functions?
+
+Let's start with `swap`:
+
+```c
+void    swap(t_stack *stack)
+{
+  int   tmp;
+
+  // if the stack has less than 2 elements, do nothing (as per the subject)
+  if (stack->size < 2)
+    return ;
+  // otherwise, swap the first two elements
+  tmp = stack->values[0];
+  stack->values[0] = stack->values[1];
+  stack->values[1] = tmp;
+}
+```
+
+Pretty simple. Now we can just call `swap` on a stack whenever we need it... right?
+
+Well, yeah, but one can do better. 
+
+See the thing we forgot is that our `push_swap` program needs to print the instructions used to sort the stack; how do we tackle that?  
+We could extend our code in two different ways:
+1. We could add a `printf` call each time we call our instruction methods
+2. We could let the instruction function (`swap` in that case) call `printf` for us.
+
+The first option is pretty bad, since we'd have a lot of `printf` calls, and would require *not forgetting any*.  
+The second option could work, but we'd have to pass which stack we're working on to the instruction function, which is also annoying.
+
+So what do we do now? It's not as if there's a better w-
+
+### 🖋️ the better way:tm:
+
+We can use function pointers!
+
+..ahem.
+
+The first idea is definitely a no-go, but the second one is actually pretty good. Having the instruction execution also print the instruction itself would be pretty nice.
+
+A way of doing that in a clean and extensible way would be to have an array, which would hold pointers to functions that execute the instructions. Sounds lovely doesn't it?
+
+First, let's define an `enum` of all the instructions, so we can use them as indices for our array:
+
+```c
+typedef enum e_insn
+{
+	NONE = 0,
+	PA,
+	PB,
+	SA,
+	SB,
+	SS,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR,
+}	t_insn;
+```
+
+Then, I'll define a struct `t_insn_info` to hold the instruction name and the function pointer:
+
+```c
+typedef struct s_insn_info
+{
+	t_insn	insn;
+	void    (*f)(t_stack *, t_stack *);
+}	t_insn_info;
+```
+
+Finally, let's define a function that will execute the instruction and print it.
+
+**Note**: Since global variables are **forbidden** for this project, we'll just be a little tricky and use a static variable inside our function to hold the array:
+
+```c
+void	ps_insn_exec(t_insn insn, t_stack *a, t_stack *b)
+{
+	size_t			        i;
+  // Array of t_insn_info, with the last element being {0, NULL}
+	static t_insn_info	insn_info_map[] = {
+	{PA, ps_insn_pa}, {PB, ps_insn_pb},
+	{SA, ps_insn_sa}, {SB, ps_insn_sb}, {SS, ps_insn_ss},
+	{RA, ps_insn_ra}, {RB, ps_insn_rb}, {RR, ps_insn_rr},
+	{RRA, ps_insn_rra},	{RRB, ps_insn_rrb},	{RRR, ps_insn_rrr},
+	{0, NULL}
+	};
+
+	i = 0;
+  // Loop through the array until we find the instruction we want
+	while (insn_info_map[i].f)
+	{
+		if (insn_info_map[i].insn == insn)
+		{
+      // Execute the instruction and print it!
+			insn_info_map[i].f(a, b);
+      ft_printf("%s\n", ps_get_name(insn));
+			return ;
+		}
+		i++;
+	}
+}
+```
+
+Now we can just call `ps_insn_exec` with the instruction we want to execute, and it'll do it for us!
+
+I find that solution more elegant than the other two, and it's also more flexible, since we can easily add more instructions without having to change anything else.
+
+After all of that, we can finally start writing our sorting algorithm!
+
+## ⚠️ the twist
+
+Not so fast my friend.
+
+We currently have implemented the stack instructions properly (I hope), and we could start the algorithm right now... but. but. hear me out:
+
+This project also has a bonus part, which is to recreate the `checker` binary, basically another program that, taking the same arguments as `push_swap`, as well as 
+**your** `push_swap` output, will check if your outputted instructions are valid and do indeed sort the list.
+
+I'm not gonna go over the bonus in this post but, if you're not running low on time, I **hightly recommend** that you do it.
+
+This simple exercice will allow you to build up even more your understanding of the project, as well as firmly test the code you just wrote; 
+because yes, everything we just did can be &mdash; and should be &mdash; reused for the checker program.
+
+All of this aside, we can finally start writing our sorting algorithm!
+
+## 💽 the algorithm.
+
+I've been writing for an hour or so and its 8am, I have to cleanup my appartment before my partner comes back soooooo
+
+`// TODO seeya`
+
+## 🔖 conclusion
+
+We did it! We made a useless program!! yay us!!!
+
+---
+
+## 🐈 footnotes
+
+This is my first time writing a writeup, so I'm not sure how it'll turn out, but hopefully someone understands this garbled mess of a brain dump.
+
+I tried to keep this article as close as possible to my thought process when making this project, but I've left out 
+some details or changes I made in my code to keep it as concise as possible, while still keeping a good amount of information.
+
+Things left out may include:
+- writing instructions to a `t_list` of `char *` instead of printing directly to allow running multiple algorithms and picking the shortest list of instructions
+- some finer butterfly sort optimizations
+- the [generic optimizer] that is the most boring thing in existence
+
+
+[42angouleme]: https://www.42angouleme.fr/ "42 Angoulême website"
+[norm]: https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf "norm pdf"
+[generic optimizer]: https://github.com/27network/push_swap/blob/main/src/push_swap/optimizer/ps_optimize.c "generic optimizer source file"

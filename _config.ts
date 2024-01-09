@@ -145,6 +145,7 @@ site
   .use(basePath())
   .use(readInfo({
     extensions: [".md", ".vto", ".html", ".mdx"],
+    wordsPerMinute: 175
   }))
   .use(sitemap())/*
   .use(pageFind({
