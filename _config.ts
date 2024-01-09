@@ -2,7 +2,6 @@ import lume from "lume/mod.ts";
 import date from "lume/plugins/date.ts";
 import postcss from "lume/plugins/postcss.ts";
 import tailwindcss from "lume/plugins/tailwindcss.ts";
-import codeHighlight from "lume/plugins/code_highlight.ts";
 import prism from "lume/plugins/prism.ts";
 import basePath from "lume/plugins/base_path.ts";
 import slugifyUrls from "lume/plugins/slugify_urls.ts";
@@ -23,9 +22,8 @@ import "npm:prismjs/components/prism-json.js";
 import "npm:prismjs/components/prism-rust.js";
 import "npm:prismjs/components/prism-java.js";
 import "npm:prismjs/components/prism-kotlin.js";
+import "npm:prismjs/components/prism-python.js";
 import "npm:prismjs/components/prism-c.js";
-import "https://deno.land/x/vento@v0.9.1/prism-vento.js";
-
 
 import { format } from "lume/deps/date.ts";
 
@@ -35,6 +33,12 @@ import emoji from 'npm:remark-emoji';
 const site = lume({
   location: new URL("https://blog.xtrm.me/"),
 });
+
+// Load the content in /css/prism.css
+site.remoteFile("/prism.css", "https://cdn.jsdelivr.net/gh/PrismJS/prism-themes/themes/prism-vsc-dark-plus.min.css");
+
+// Copy the file
+site.copy("/prism.css");
 
 site.preprocess([".html"], (pages) => {
   for (const page of pages) {
@@ -56,14 +60,33 @@ site
       corePlugins: {
         preflight: false,
       },
+      theme: {
+        colors: {
+          x: {
+            DEFAULT: "#b049c5"
+          }
+        },
+        extend: {
+          keyframes: {
+            boinge: {
+              "0%": { transform: "scale(1, 1)" },
+              "35%": { transform: "scale(1.2, 0.8)" },
+              "70%": { transform: "scale(0.95, 1.1)" },
+              "100%": { transform: "scale(1, 1)" },
+            }
+          },
+          animation: {
+            boinge: "boinge .825s forwards"
+          }
+        }
+      }
     }
   }))
   .use(prism({
-    extensions: [".vto", ".html"],
+    extensions: [".md", ".vto", ".html", ".mdx"],
   }))
   .use(postcss())
   .use(date())
-  .use(codeHighlight())
   .use(basePath())
   .use(sitemap())/*
   .use(pageFind({
@@ -86,11 +109,11 @@ site
   }))
   .use(jsx())
   .use(mdx({
-    remarkPlugins: [a11yEmoji, emoji],
+    remarkPlugins: [emoji, a11yEmoji],
     rehypePlugins: [],
   }))
   .use(resolveUrls())
-  //.use(lightningCss())
+  .use(lightningCss())
   /*.use(multilanguage({
     languages: ["en", "fr"],
   }))*/

@@ -8,10 +8,6 @@ p, h1, h2, h3, h4, h5, h6, a {
     color: #fff;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 .task-list-item::marker {
     content: "";
 }
