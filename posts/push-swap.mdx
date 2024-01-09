@@ -118,19 +118,19 @@ First, let's define an `enum` of all the instructions, so we can use them as ind
 ```c
 typedef enum e_insn
 {
-	NONE = 0,
-	PA,
-	PB,
-	SA,
-	SB,
-	SS,
-	RA,
-	RB,
-	RR,
-	RRA,
-	RRB,
-	RRR,
-}	t_insn;
+  NONE = 0,
+  PA,
+  PB,
+  SA,
+  SB,
+  SS,
+  RA,
+  RB,
+  RR,
+  RRA,
+  RRB,
+  RRR,
+} t_insn;
 ```
 
 Then, I'll define a struct `t_insn_info` to hold the instruction name and the function pointer:
@@ -138,9 +138,9 @@ Then, I'll define a struct `t_insn_info` to hold the instruction name and the fu
 ```c
 typedef struct s_insn_info
 {
-	t_insn	insn;
-	void    (*f)(t_stack *, t_stack *);
-}	t_insn_info;
+  t_insn  insn;
+  void    (*f)(t_stack *, t_stack *);
+}  t_insn_info;
 ```
 
 Finally, let's define a function that will execute the instruction and print it.
@@ -148,31 +148,31 @@ Finally, let's define a function that will execute the instruction and print it.
 **Note**: Since global variables are **forbidden** for this project, we'll just be a little tricky and use a static variable inside our function to hold the array:
 
 ```c
-void	ps_insn_exec(t_insn insn, t_stack *a, t_stack *b)
+void  ps_insn_exec(t_insn insn, t_stack *a, t_stack *b)
 {
-	size_t			        i;
+  size_t              i;
   // Array of t_insn_info, with the last element being {0, NULL}
-	static t_insn_info	insn_info_map[] = {
-	{PA, ps_insn_pa}, {PB, ps_insn_pb},
-	{SA, ps_insn_sa}, {SB, ps_insn_sb}, {SS, ps_insn_ss},
-	{RA, ps_insn_ra}, {RB, ps_insn_rb}, {RR, ps_insn_rr},
-	{RRA, ps_insn_rra},	{RRB, ps_insn_rrb},	{RRR, ps_insn_rrr},
-	{0, NULL}
-	};
+  static t_insn_info  insn_info_map[] = {
+  {PA, ps_insn_pa}, {PB, ps_insn_pb},
+  {SA, ps_insn_sa}, {SB, ps_insn_sb}, {SS, ps_insn_ss},
+  {RA, ps_insn_ra}, {RB, ps_insn_rb}, {RR, ps_insn_rr},
+  {RRA, ps_insn_rra},  {RRB, ps_insn_rrb},  {RRR, ps_insn_rrr},
+  {0, NULL}
+  };
 
-	i = 0;
+  i = 0;
   // Loop through the array until we find the instruction we want
-	while (insn_info_map[i].f)
-	{
-		if (insn_info_map[i].insn == insn)
-		{
+  while (insn_info_map[i].f)
+  {
+    if (insn_info_map[i].insn == insn)
+    {
       // Execute the instruction and print it!
-			insn_info_map[i].f(a, b);
+      insn_info_map[i].f(a, b);
       ft_printf("%s\n", ps_get_name(insn));
-			return ;
-		}
-		i++;
-	}
+      return ;
+    }
+    i++;
+  }
 }
 ```
 
@@ -200,13 +200,15 @@ All of this aside, we can finally start writing our sorting algorithm!
 
 ## 💽 the algorithm.
 
-I've been writing for an hour or so and its 8am, I have to cleanup my appartment before my partner comes back soooooo
+I've been writing for an hour or so and its 8am, I have to cleanup stuff and run earrands soooooo
 
 `// TODO seeya`
 
 ## 🔖 conclusion
 
 We did it! We made a useless program!! yay us!!!
+
+`// TODO conclusion`
 
 ---
 
