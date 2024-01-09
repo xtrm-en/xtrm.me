@@ -18,7 +18,6 @@ import mdx from "lume/plugins/mdx.ts";
 import "npm:prismjs/components/prism-markdown.js";
 import "npm:prismjs/components/prism-yaml.js";
 import "npm:prismjs/components/prism-markup-templating.js";
-import "npm:prismjs/components/prism-liquid.js";
 import "npm:prismjs/components/prism-typescript.js";
 import "npm:prismjs/components/prism-json.js";
 import "npm:prismjs/components/prism-rust.js";
@@ -33,7 +32,7 @@ import a11yEmoji from 'npm:@fec/remark-a11y-emoji';
 import emoji from 'npm:remark-emoji';
 
 const site = lume({
-  location: new URL("https://blog.xtrm.me/"),
+  location: new URL("https://xtrm.me/"),
 });
 
 // Load the content in /css/prism.css
