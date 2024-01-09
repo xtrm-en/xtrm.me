@@ -42,6 +42,7 @@ site.copy("/prism.css");
 
 site.preprocess([".html"], (pages) => {
   for (const page of pages) {
+    // Post hierarchy based on date
     if (page.data.url.startsWith("/posts/")) {
       page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM/dd")}/`);
     }
@@ -49,6 +50,14 @@ site.preprocess([".html"], (pages) => {
     if (page.data.url.endsWith("/") && page.data.url !== "/") {
       page.data.url = page.data.url.replace(/\/$/, "");
     }*/
+  }
+});
+site.process([".html"], (pages) => {
+  for (const page of pages) {
+    // Add a class to all inline code blocks
+    for (const elem of page.document?.getElementsByTagName("code") ?? []) {
+      if (elem.className === "") elem.className = "language-none";
+    }
   }
 });
 
