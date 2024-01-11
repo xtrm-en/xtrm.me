@@ -3,7 +3,7 @@ title: "silly homepage"
 desc: "hacking away at random and useless stuff I find cool :3"
 ---
 
-# hi :wave:, I'm **killian.**
+# hi :wave:
 
 ---
 
