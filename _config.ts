@@ -63,7 +63,7 @@ site
   .use(dateInPath({
     dateFormat: "yyyy/MM",
     filter: (page: Page) => page.data.type === "post",
-    mutator: (page: Page, date: string) => page.data.url.replace("/posts/", `/${date}/`),
+    mutator: (page: Page, date: string) => page.data.url.replace("/posts/", `/blog/${date}/`),
   }))
   .use(fixupInlineCodeBlocks())
   .use(mdShiftHeadings({
