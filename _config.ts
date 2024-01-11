@@ -1,9 +1,12 @@
+// Lume & imports
 import lume from "lume/mod.ts";
+import { Page } from "lume/core/file.ts";
+
+// Lume internal plugins
 import date from "lume/plugins/date.ts";
 import metas from "lume/plugins/metas.ts";
 import postcss from "lume/plugins/postcss.ts";
 import tailwindcss from "lume/plugins/tailwindcss.ts";
-import prism from "lume/plugins/prism.ts";
 import basePath from "lume/plugins/base_path.ts";
 import slugifyUrls from "lume/plugins/slugify_urls.ts";
 import resolveUrls from "lume/plugins/resolve_urls.ts";
@@ -14,102 +17,59 @@ import feed from "lume/plugins/feed.ts";
 import minifyHTML from "lume/plugins/minify_html.ts";
 import jsx from "lume/plugins/jsx.ts";
 import mdx from "lume/plugins/mdx.ts";
+import remark from "lume/plugins/remark.ts";
 
-import "npm:prismjs/components/prism-markdown.js";
-import "npm:prismjs/components/prism-yaml.js";
-import "npm:prismjs/components/prism-markup-templating.js";
-import "npm:prismjs/components/prism-typescript.js";
-import "npm:prismjs/components/prism-json.js";
-import "npm:prismjs/components/prism-rust.js";
-import "npm:prismjs/components/prism-java.js";
-import "npm:prismjs/components/prism-kotlin.js";
-import "npm:prismjs/components/prism-python.js";
-import "npm:prismjs/components/prism-c.js";
+// Custom Lume plugins
+import dateInPath from "./lib/lume/dateInPath.ts";
+import ensureProperMeta from "./lib/lume/ensureProperMeta.ts";
+import fixupInlineCodeBlocks from "./lib/lume/fixupInlineCodeBlocks.ts";
+import hideToc from "./lib/lume/hideToc.ts";
+import mdShiftHeadings from "./lib/lume/mdShiftHeadings.ts";
 
-import { format } from "lume/deps/date.ts";
-
+// Remark / Rehype plugins
 import a11yEmoji from 'npm:@fec/remark-a11y-emoji';
 import emoji from 'npm:remark-emoji';
+import slugs from 'npm:rehype-slug';
+import toc from 'npm:@jsdevtools/rehype-toc';
+import rehypePrism from 'npm:@mapbox/rehype-prism';
 
+// Begin Lume config
 const site = lume({
   location: new URL("https://xtrm.me/"),
 });
 
-// Load the content in /css/prism.css
-site.remoteFile("/prism.css", "https://cdn.jsdelivr.net/gh/PrismJS/prism-themes/themes/prism-vsc-dark-plus.min.css");
-
-// Copy the file
-site.copy("/prism.css");
-
 site.preprocess([".html"], (pages) => {
   for (const page of pages) {
-    // Post hierarchy based on date
-    if (page.data.url.startsWith("/posts/")) {
-      page.data.url = page.data.url.replace("/posts/", `/${format(page.data.date, "yyyy/MM")}/`);
-    }
+    // Remove /pages/ from the URL (put at the root)
     if (page.src.path.startsWith("/pages/")) {
       page.data.url = page.data.url.replace("/pages/", "/");
-    }
-    if (page.src.path.startsWith("/projects/")) {
-      // idk
-    }
-    /* nevermind this breaks everything
-    if (page.data.url.endsWith("/") && page.data.url !== "/") {
-      page.data.url = page.data.url.replace(/\/$/, "");
-    }*/
-  }
-});
-// Fix post headings: if we detect usage of a # heading, we replace all subsequent headings with a lower level
-site.preprocess([".md", ".mdx"], (pages) => {
-  for (const page of pages) {
-    if (page.data.type === "post") {
-      if (page.data.content !== undefined) {
-        const content: string = page.data.content?.toString() || "";
-        const lines = content.split("\n");
-        let shouldReplace = false;
-        for (const line of lines) {
-          if (line.startsWith("# ")) {
-            shouldReplace = true;
-            break
-          }
-        }
-        if (shouldReplace) {
-          let newContent = "";
-          for (const line of lines) {
-            if (line.startsWith("#")) {
-              newContent += line.replace("# ", "## ") + "\n";
-            } else {
-              newContent += line + "\n";
-            }
-          }
-          page.data.content = newContent;
-        }
+
+      // Replaces /404/ with /404.html since we moved it
+      const match = page.data.url.match(/\/(\d{3})\/$/);
+      if (match !== null) {
+        page.data.url = page.data.url.replace(match[0], `/${match[1]}.html`);
       }
     }
   }
 });
-site.preprocess([".html"], (pages) => {
-  for (const page of pages) {
-    if (page.data.title === undefined) {
-      throw new Error(`Page ${page.src.path} has no title`);
-    }
-    if (page.data.desc === undefined) {
-      throw new Error(`Page ${page.src.path} has no description`);
-    }
-  }
-});
-site.process([".html"], (pages) => {
-  for (const page of pages) {
-    // Add a class to all inline code blocks
-    for (const elem of page.document?.getElementsByTagName("code") ?? []) {
-      if (elem.className === "") elem.className = "language-none";
-    }
-  }
-});
+
+site.ignore("README.md");
+site.copy("static", ".");
 
 site
-  .ignore("README.md")
-  .copy("static", ".")
+  .use(ensureProperMeta({
+    requiredMetas: ["title", "desc"],
+  }))
+  .use(dateInPath({
+    dateFormat: "yyyy/MM",
+    filter: (page: Page) => page.data.type === "post",
+    mutator: (page: Page, date: string) => page.data.url.replace("/posts/", `/${date}/`),
+  }))
+  .use(fixupInlineCodeBlocks())
+  .use(mdShiftHeadings({
+    filter: (page: Page) => page.data.type === "post"
+  }))
+  .use(hideToc())
   .use(tailwindcss({
     options: {
       corePlugins: {
@@ -137,9 +97,6 @@ site
       }
     }
   }))
-  .use(prism({
-    extensions: [".md", ".vto", ".html", ".mdx"],
-  }))
   .use(postcss())
   .use(date())
   .use(basePath())
@@ -147,18 +104,13 @@ site
     extensions: [".md", ".vto", ".html", ".mdx"],
     wordsPerMinute: 175
   }))
-  .use(sitemap())/*
-  .use(pageFind({
+  .use(sitemap())
+  /*.use(pageFind({
     ui: {
       resetStyles: false,
     },
   }))*/
   .use(slugifyUrls({ alphanumeric: false }))
-  .use(jsx())
-  .use(mdx({
-    remarkPlugins: [emoji, a11yEmoji],
-    rehypePlugins: [],
-  }))
   .use(metas())
   .use(resolveUrls())
   .use(lightningCss())
@@ -177,9 +129,21 @@ site
       content: "$ #post-content",
     },
   }))
-  /*.use(multilanguage({
-    languages: ["en", "fr"],
-  }))*/
+  // Template engines / language support
+  .use(remark({
+    useDefaultPlugins: true,
+    remarkPlugins: [emoji, a11yEmoji],
+    rehypePlugins: [slugs, rehypePrism, toc],
+    rehypeOptions: {
+      clobberPrefix: "",
+    }
+  }))
+  .use(jsx())
+  .use(mdx({
+    useDefaultPlugins: true,
+    remarkPlugins: [emoji, a11yEmoji],
+    rehypePlugins: [slugs, rehypePrism, toc],
+  }))
   ;
 
 export default site;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang={{ it.lang || "en" }}>
 <head>
-  {{ include './meta/default.vto' }}
+  {{ include './meta/head.vto' }}
   <title>{{ it.title || "welcome"}} &mdash; {{ it.site_title }}</title>
-  {{ it.extra_head || "" }}
+  {{- it.extra_head || "" -}}
 </head>
 <body class="h-screen mx-4 flex items-center flex-col">
   <div class="w-full max-w-[80ch] text-xs sm:text-base flex justify-center align-center items-center flex-col">

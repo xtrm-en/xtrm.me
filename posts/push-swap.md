@@ -20,6 +20,10 @@ That may prove to be quite the challenge depending on which algorithm you though
 
 ##### *(bogosort ftw)*
 
+## table of contents
+
+<div id="toc"></div>
+
 ## 📏 the rules
 
 The rules are as follows:
@@ -41,7 +45,7 @@ The rules are as follows:
   - `rrr`: `rra` and `rrb` at the same time.
 - You must display the instructions used to sort A, with a newline at the end.
 
-## 🔥⬇️🕳️ jumping in!
+## 🔥⬇️🕳️ jumping in! [^1]
 
 so... how do we do this? where do we start?
 
@@ -186,9 +190,9 @@ After all of that, we can finally start writing our sorting algorithm!
 
 Not so fast my friend.
 
-We currently have implemented the stack instructions properly (I hope), and we could start the algorithm right now... but. but. hear me out:
+We currently have implemented the stack instructions properly (I hope), and we could start the algorithm right now... but. *but*. hear me out:
 
-This project also has a bonus part, which is to recreate the `checker` binary, basically another program that, taking the same arguments as `push_swap`, as well as 
+This project also has a bonus part, which is to recreate the `checker` binary: basically another program that, taking the same arguments as `push_swap`, as well as 
 **your** `push_swap` output, will check if your outputted instructions are valid and do indeed sort the list.
 
 I'm not gonna go over the bonus in this post but, if you're not running low on time, I **hightly recommend** that you do it.
@@ -212,7 +216,7 @@ We did it! We made a useless program!! yay us!!!
 
 ---
 
-## 🐈 footnotes
+## 🐈 meta talk
 
 This is my first time writing a writeup, so I'm not sure how it'll turn out, but hopefully someone understands this garbled mess of a brain dump.
 
@@ -223,6 +227,10 @@ Things left out may include:
 - writing instructions to a `t_list` of `char *` instead of printing directly to allow running multiple algorithms and picking the shortest list of instructions
 - some finer butterfly sort optimizations
 - the [generic optimizer] that is the most boring thing in existence
+
+## 🏷️ footnotes
+
+[^1]: gd reference hehehe
 
 
 [42angouleme]: https://www.42angouleme.fr/ "42 Angoulême website"

@@ -8,6 +8,8 @@ tags:
 
 # wow incredible
 
-test post haha
+test post haha [^1]
 
-[link](./my-first-post.mdx)
+[^1]: this is a footnote
+
+[link](./cool-first-post.md)

@@ -5,7 +5,7 @@ desc: where I want things to go (aka. my dumb silly ideas)
 
 `TODO`: make the navbar work. lol
 
-# so what then?
+<h1 id="so-what-then">so what then?</h1>
 
 *A lot of things actually...*
 

@@ -13,3 +13,15 @@ metas:
   icon: "/icons/android-chrome-384x384.png"
   lang: "=lang"
   generator: true
+  robots: true
+  keywords:
+  - "xtrmdev"
+  - "xtrm's blog"
+  - "xtrm's site"
+  - "xtrmdev site"
+  - "x's site"
+  - "xtrm.me"
+  - "x.dev"
+  - "xtrm developer"
+  - "killian dev"
+  - "killian developer"
