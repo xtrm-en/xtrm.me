@@ -13,8 +13,8 @@ export default function hideToc() {
         for (const elem of page.document?.getElementsByTagName("nav") ?? []) {
           if (pageToc === undefined && elem.className === "toc") {
             pageToc = elem;
-            elems.push(elem);
           }
+          elems.push(elem);
         }
         if (pageToc !== undefined) {
           page.document?.getElementById("toc")?.replaceWith(pageToc.cloneNode(true));

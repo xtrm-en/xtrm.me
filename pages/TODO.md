@@ -19,11 +19,13 @@ This is a work in progress, and I'm not sure how much time I'll be able to put i
 - [ ] `/projects/` page
 - [ ] `/links/` (which would double as a `/contact/`) page
 - [x] markdown prismjs integration for codeblocks !!!!!
-- [ ] `/about/` page? or maybe keep that to the main page
+- [x] `/about/` page
 - [ ] Posts tag management
 - [ ] Posts pagination
 - [ ] Posts search
 - [ ] actually use data instead of hardcoding shit
+- [x] better Lume/Rehype configs
+- [ ] update main page when everything's kinda done-ish
 
 ## may be nice
 - [ ] `/resume/` page
