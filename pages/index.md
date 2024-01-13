@@ -5,8 +5,6 @@ desc: "hacking away at random and useless stuff I find cool :3"
 
 # hi :wave:
 
----
-
 welcome to my new *new* *new* website, this time using a static site generator! we'll see how that goes...
 
 this is heavily under development but I think I plan on moving everything here, my socials, my projects, etc.  

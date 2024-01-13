@@ -8,7 +8,6 @@ tags:
 - 42-project
 - writeup
 ---
-
 ## 📖 prelude
 
 This is a project I did for my school [42 Angoulême][42angouleme].
@@ -17,7 +16,6 @@ The goal was to parse a list of integers given as program arguments, and then so
 
 This would naturally involve some kind of sorting algorithm, although we would need to make it ourselves, or at least adapt a known one to the rules...  
 That may prove to be quite the challenge depending on which algorithm you thought of first :^) 
-
 ##### *(bogosort ftw)*
 
 ## table of contents

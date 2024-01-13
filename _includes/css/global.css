@@ -33,3 +33,16 @@ header nav li::marker {
 header nav li:hover::marker {
     color: #fff;
 }
+
+footer > #block3 p {
+    margin: 0px;
+}
+
+img.emoji {
+    transform: translateY(0.25em);
+    height: 1.2em;
+}
+
+div#search {
+    margin-bottom: 24px;
+}

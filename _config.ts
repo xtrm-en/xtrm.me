@@ -1,3 +1,5 @@
+import { writeAll } from "https://deno.land/std@0.166.0/streams/conversion.ts";
+
 // Lume & imports
 import lume from "lume/mod.ts";
 import { Page } from "lume/core/file.ts";
@@ -14,10 +16,12 @@ import lightningCss from "lume/plugins/lightningcss.ts";
 import readInfo from "lume/plugins/reading_info.ts";
 import sitemap from "lume/plugins/sitemap.ts";
 import feed from "lume/plugins/feed.ts";
+import pageFind from "lume/plugins/pagefind.ts";
 import minifyHTML from "lume/plugins/minify_html.ts";
 import jsx from "lume/plugins/jsx.ts";
 import mdx from "lume/plugins/mdx.ts";
 import remark from "lume/plugins/remark.ts";
+import modifyUrls from "lume/plugins/modify_urls.ts";
 
 // Custom Lume plugins
 import dateInPath from "./lib/lume/dateInPath.ts";
@@ -32,6 +36,10 @@ import emoji from 'npm:remark-emoji';
 import slugs from 'npm:rehype-slug';
 import toc from 'npm:@jsdevtools/rehype-toc';
 import rehypePrism from 'npm:@mapbox/rehype-prism';
+import ghAdmonitions from 'npm:remark-github-beta-blockquote-admonitions';
+import twemoji from 'npm:rehype-twemojify';
+import cacheContent from "./lib/lume/cacheContent.ts";
+import twemojiLoadSync from "./lib/lume/twemojiLoadSync.ts";
 
 // Begin Lume config
 const site = lume({
@@ -70,6 +78,7 @@ site
     filter: (page: Page) => page.data.type === "post"
   }))
   .use(hideToc())
+  .use(twemojiLoadSync())
   .use(tailwindcss({
     options: {
       corePlugins: {
@@ -105,11 +114,13 @@ site
     wordsPerMinute: 175
   }))
   .use(sitemap())
-  /*.use(pageFind({
+  .use(pageFind({
     ui: {
       resetStyles: false,
     },
-  }))*/
+    indexing: {
+    }
+  }))
   .use(slugifyUrls({ alphanumeric: false }))
   .use(metas())
   .use(resolveUrls())
@@ -129,20 +140,15 @@ site
       content: "$ #post-content",
     },
   }))
+  // .use(cacheContent())
   // Template engines / language support
   .use(remark({
     useDefaultPlugins: true,
-    remarkPlugins: [emoji, a11yEmoji],
-    rehypePlugins: [slugs, rehypePrism, toc],
+    remarkPlugins: [emoji, a11yEmoji, ghAdmonitions],
+    rehypePlugins: [twemoji, slugs, rehypePrism, toc],
     rehypeOptions: {
       clobberPrefix: "",
     }
-  }))
-  .use(jsx())
-  .use(mdx({
-    useDefaultPlugins: true,
-    remarkPlugins: [emoji, a11yEmoji],
-    rehypePlugins: [slugs, rehypePrism, toc],
   }))
   ;
 

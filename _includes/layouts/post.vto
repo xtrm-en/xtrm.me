@@ -8,13 +8,12 @@ layout: layouts/base.vto
   <div class="inline flex flex-row gap-2">
   {{ for tag of it.tags }}
     <code>{{ tag }}</code>
+    {{# TODO: data-pagefind-meta="{{????}}" #}}
   {{ /for }}
   </div>
   {{ /if }}
   <br>
   {{ include "./comp/sep-full.vto" }}
-  <br>
-  <div id="post-content">
-    {{- content |> safe -}}
-  </div>
+  <div id="post-content" data-pagefind-body>{{ content |> safe }}</div>
+  {{ include "./comp/sep-full.vto" }}
 </div>
