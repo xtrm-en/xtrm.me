@@ -21,5 +21,4 @@ also also also is the header title noticably a link to the homepage? like do i *
 
 anyways here's the [TODO list](./TODO.md) if you're interested.  
 here is the [md renderer tests page](./render-tests.md).  
-here's a WIP [writeup article](/posts/push-swap.md) about a school project I did, `push_swap`.  
-here's two [test](/posts/cool-first-post.md) [posts](/posts/my-second-post.md) (for whenever i finish the layout)
+you can check the posts in [/posts](./posts.vto)

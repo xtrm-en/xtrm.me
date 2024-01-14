@@ -3,12 +3,17 @@ title: Search posts
 desc: "View a listing of my cool posts over the years!"
 ---
 
+{{ set enableSearchbar = false }}
+{{ if enableSearchbar }}
 <div id="search" class="hidden"></div>
 <script id="searchbar-show" defer>
   document.getElementById("search").classList.remove("hidden");
   document.getElementById("searchbar-show").remove();
 </script>
 {{ include "..//_includes/layouts/comp/sep-full.vto" }}
+{{ else }}
+<p class="text-[#bfbfbf]">Searchbar is currently disabled since it's a Work In Progress.</p>
+{{ /if }}
 
 <div class="posts-container mt-6">
 {{ set posts = search.pages("type=post", "date=desc") }}
@@ -22,10 +27,11 @@ desc: "View a listing of my cool posts over the years!"
   {{ set year = post.date |> date("Y") }}
   {{ if !years.includes(year) }}
     {{> years.push(year) }}
-    <h2 class="mt-6">{{ year }}</h2>
+    <h2 class="mt-6" id="{{ year }}">{{ year }}</h2>
   {{ /if }}
-  <div class="post">
-    <span><a href="{{ post.url }}">{{ post.title }}</a> &ndash; test</span>
+  <div class="post flex w-auto justify-between pl-10 hover:bg-[#0c0c0c] pr-2">
+    <a href="{{ post.url }}">{{ post.title }}</a>
+    <p class="m-0 text-[#4f4f4f]">{{ post.date |> date("dd/MM/yyyy") }}</p>
   </div>
 {{ /for }}
 </div>

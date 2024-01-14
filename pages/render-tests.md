@@ -3,15 +3,19 @@ title: render tests
 desc: this is a test page for the markdown renderer
 ---
 
-<div id="toc"></div>
-
 # main title
 
 this is pretty cool :3
 
+## table of contents
+
+<div id="toc"></div>
+
 ## subtitle
 
 oooooooo 
+
+## test points
 
 ### inline code
 
@@ -143,3 +147,20 @@ __underline__
 __*italic underlined*__
 
 _**italic bold**_
+
+## other tests
+
+### idk how its called
+
+but its this thing [^1]
+
+and idk [^2] hwo its called but its cool
+
+### some other things cool
+
+bla bla bla bla \<insert cool stuff here>
+
+---
+
+[^1]: haha cool
+[^2]: it means i dont know

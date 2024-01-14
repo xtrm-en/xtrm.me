@@ -11,4 +11,8 @@ after a thousand years *(approx. [5 days](https://github.com/xtrm-en/xtrm.me/com
 
 pretty [search page](/pages/posts.vto), cool **d e s i g n**, cute *footer*, what more could I want?
 
+---
+
+realistically speaking I still have [a bit more](/pages/TODO.md) to do on here, but I consider the site well usable right now
+
 ### 

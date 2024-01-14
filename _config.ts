@@ -1,4 +1,4 @@
-import { writeAll } from "https://deno.land/std@0.166.0/streams/conversion.ts";
+import * as dotenv from "https://deno.land/std@0.212.0/dotenv/mod.ts";
 
 // Lume & imports
 import lume from "lume/mod.ts";
@@ -18,10 +18,7 @@ import sitemap from "lume/plugins/sitemap.ts";
 import feed from "lume/plugins/feed.ts";
 import pageFind from "lume/plugins/pagefind.ts";
 import minifyHTML from "lume/plugins/minify_html.ts";
-import jsx from "lume/plugins/jsx.ts";
-import mdx from "lume/plugins/mdx.ts";
 import remark from "lume/plugins/remark.ts";
-import modifyUrls from "lume/plugins/modify_urls.ts";
 
 // Custom Lume plugins
 import dateInPath from "./lib/lume/dateInPath.ts";
@@ -29,6 +26,7 @@ import ensureProperMeta from "./lib/lume/ensureProperMeta.ts";
 import fixupInlineCodeBlocks from "./lib/lume/fixupInlineCodeBlocks.ts";
 import hideToc from "./lib/lume/hideToc.ts";
 import mdShiftHeadings from "./lib/lume/mdShiftHeadings.ts";
+import cacheAssets from "https://deno.land/x/lume_cache_assets@0.0.7/mod.ts";
 
 // Remark / Rehype plugins
 import a11yEmoji from 'npm:@fec/remark-a11y-emoji';
@@ -38,8 +36,10 @@ import toc from 'npm:@jsdevtools/rehype-toc';
 import rehypePrism from 'npm:@mapbox/rehype-prism';
 import ghAdmonitions from 'npm:remark-github-beta-blockquote-admonitions';
 import twemoji from 'npm:rehype-twemojify';
-import cacheContent from "./lib/lume/cacheContent.ts";
 import twemojiLoadSync from "./lib/lume/twemojiLoadSync.ts";
+import removeSrLabels from "./lib/rehype/removeSrLabels.ts";
+
+const env = dotenv.loadSync();
 
 // Begin Lume config
 const site = lume({
@@ -71,7 +71,7 @@ site
   .use(dateInPath({
     dateFormat: "yyyy/MM",
     filter: (page: Page) => page.data.type === "post",
-    mutator: (page: Page, date: string) => page.data.url.replace("/posts/", `/blog/${date}/`),
+    mutator: (page: Page, date: string) => page.data.url.replace("/posts/", `/posts/${date}/`),
   }))
   .use(fixupInlineCodeBlocks())
   .use(mdShiftHeadings({
@@ -139,17 +139,22 @@ site
       description: "=desc",
       content: "$ #post-content",
     },
-  }))
-  // .use(cacheContent())
-  // Template engines / language support
-  .use(remark({
-    useDefaultPlugins: true,
-    remarkPlugins: [emoji, a11yEmoji, ghAdmonitions],
-    rehypePlugins: [twemoji, slugs, rehypePrism, toc],
-    rehypeOptions: {
-      clobberPrefix: "",
-    }
-  }))
-  ;
+  }));
+
+if (env.X_ENV !== "dev") {
+  site.use(cacheAssets({
+    folder: "assets/cache",
+  }));
+}
+
+// Template engines / language support
+site.use(remark({
+  useDefaultPlugins: true,
+  remarkPlugins: [emoji, a11yEmoji, ghAdmonitions],
+  rehypePlugins: [removeSrLabels, twemoji, slugs, rehypePrism, toc],
+  rehypeOptions: {
+    clobberPrefix: "",
+  }
+}));
 
 export default site;

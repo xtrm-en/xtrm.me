@@ -25,15 +25,16 @@
     <p class="m-0">Made with 💖, 🏳️‍🌈, <span class="text-[#5BCEFA]">si</span><span class="text-[#F5A9B8]">ll</span><span class="text-[#fff]">y</span><span class="text-[#F5A9B8]">ne</span><span class="text-[#5BCEFA]">ss</span>, 🐈, &amp; built w/ <a href="https://lume.land">lume.land</a>.</p>
     <p class="m-0">Deployed the {{ new Date() |> date("dd/MM/yyyy") }} at {{ new Date() |> date("hh:mm:ss") }} on {{ _env }} @ <a href="https://github.com/xtrm-en/xtrm.me/tree/{{ _link }}">{{ _head }}</a></p>
   </div>
-  <div id="block3" class="flex-1 hidden sm:block p-4 pt-3 rounded-[6px] bg-[#050505]">
+  <div id="block3" class="flex-1 p-4 pt-3 rounded-[6px] bg-[#050505]">
     <span id="noscript">
       {{ ":warning: I see you don't like javascript? hey. me neither. hate that shit :heart: *However*, stuff here that's reliant on it **will** dissapear (like search). cant say i didnt told ya now" |> md }}
     </span>
-    <p id="htmx-propaganda" class="hidden">did you know that this website is sponsored by our lord and saviour <a href="https://htmx.org/">htmx</a>? jk i don't ship js lmao.</p>
     <script id="shilling" defer>
-      document.getElementById("noscript").remove();
-      document.getElementById("htmx-propaganda").classList.remove("hidden");
-      document.getElementById("shilling").remove();
+      const ft = document.getElementById("faketerm");
+      ft.classList.remove("flex-initial");
+      ft.classList.add("flex-1");
+      
+      document.getElementById("block3").remove();
     </script> 
   </div>
 </footer>
