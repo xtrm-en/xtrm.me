@@ -26,7 +26,7 @@ import ensureProperMeta from "./lib/lume/ensureProperMeta.ts";
 import fixupInlineCodeBlocks from "./lib/lume/fixupInlineCodeBlocks.ts";
 import handleToc from "./lib/lume/handleToc.ts";
 import mdShiftHeadings from "./lib/lume/mdShiftHeadings.ts";
-import cacheAssets from "https://deno.land/x/lume_cache_assets@0.0.7/mod.ts";
+import cacheAssets from "https://deno.land/x/lume_cache_assets@0.0.9/mod.ts";
 
 // Remark / Rehype plugins
 import a11yEmoji from 'npm:@fec/remark-a11y-emoji';
@@ -144,6 +144,7 @@ site
 if (env.X_ENV !== "dev") {
   site.use(cacheAssets({
     folder: "assets/cache",
+    logOutput: false, // false since cloudflare pages breaks otherwise
   }));
 }
 
