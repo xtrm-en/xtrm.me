@@ -4,7 +4,7 @@ import type Site from "lume/core/site.ts";
 
 /**
  */
-export default function hideToc() {
+export default function handleToc() {
   return (site: Site) => {
     site.process([".html"], (pages) => {
       const elems = [];

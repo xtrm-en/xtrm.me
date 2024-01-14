@@ -24,7 +24,7 @@ import remark from "lume/plugins/remark.ts";
 import dateInPath from "./lib/lume/dateInPath.ts";
 import ensureProperMeta from "./lib/lume/ensureProperMeta.ts";
 import fixupInlineCodeBlocks from "./lib/lume/fixupInlineCodeBlocks.ts";
-import hideToc from "./lib/lume/hideToc.ts";
+import handleToc from "./lib/lume/handleToc.ts";
 import mdShiftHeadings from "./lib/lume/mdShiftHeadings.ts";
 import cacheAssets from "https://deno.land/x/lume_cache_assets@0.0.7/mod.ts";
 
@@ -77,7 +77,7 @@ site
   .use(mdShiftHeadings({
     filter: (page: Page) => page.data.type === "post"
   }))
-  .use(hideToc())
+  .use(handleToc())
   .use(twemojiLoadSync())
   .use(tailwindcss({
     options: {
