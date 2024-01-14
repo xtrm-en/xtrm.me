@@ -18,7 +18,6 @@ also also also is the header title noticably a link to the homepage? like do i *
 
 ---
 
-
 anyways here's the [TODO list](./TODO.md) if you're interested.  
 here is the [md renderer tests page](./render-tests.md).  
 you can check the posts in [/posts](./posts.vto)
