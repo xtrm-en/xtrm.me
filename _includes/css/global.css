@@ -38,6 +38,15 @@ footer > #block3 p {
     margin: 0px;
 }
 
+img {
+	max-width: 75%;
+	height: auto;
+}
+
+video {
+	width: 100%;
+}
+
 img.emoji {
     transform: translateY(0.25em);
     height: 1.2em;

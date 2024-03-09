@@ -87,7 +87,7 @@ site
       theme: {
         colors: {
           x: {
-            DEFAULT: "#b049c5"
+            DEFAULT: "#d259ea"
           }
         },
         extend: {

@@ -10,6 +10,8 @@ tags:
 ---
 ## 📖 prelude
 
+> :warning: **Disclaimer**: This article is a *big* WIP & unfinished.
+
 This is a project I did for my school [42 Angoulême][42angouleme].
 
 The goal was to parse a list of integers given as program arguments, and then sort them using a limited set of instructions.
@@ -180,11 +182,9 @@ void  ps_insn_exec(t_insn insn, t_stack *a, t_stack *b)
 
 Now we can just call `ps_insn_exec` with the instruction we want to execute, and it'll do it for us!
 
-I find that solution more elegant than the other two, and it's also more flexible, since we can easily add more instructions without having to change anything else.
+I find that solution more elegant than the other two, and it's also more flexible, since we can easily add more instructions without having to change a lot.
 
-After all of that, we can finally start writing our sorting algorithm!
-
-## ⚠️ the twist
+## ⚠️ special interlude
 
 Not so fast my friend.
 
@@ -200,17 +200,70 @@ because yes, everything we just did can be &mdash; and should be &mdash; reused 
 
 All of this aside, we can finally start writing our sorting algorithm!
 
-## 💽 the algorithm.
+## 🚬 we recap
 
-I've been writing for an hour or so and its 8am, I have to cleanup stuff and run earrands soooooo
+alright. recap time. 
 
-`// TODO seeya`
+So far we've made:
+- a stack system
+- multiple operations/instructions
+- a extensible instruction execution system
+- maybe a `checker` program
+
+What possibly could be left hahaha- oh fuck.
+
+## 🔢 the algorithm
+
+In terms of algorithms, a lot could go into the descision-making here:
+- how much are you willing to commit to understanding your solution (you should master it completely)
+- what floats your neurons best
+- your knowledge in sorting algorithms
+
+You've probably already seen your standard insertion / selection sort in CS classes, maybe even went as far as merge / quicksort.
+
+Divide and conquer is always a good sorting strategy, and is sure to give you the best results.  
+That being said, is it *really* necessary here?
+
+Let's take *another* approach.
+
+### 🦋 butterfly sort [^2]
+
+Let us make a living creature, more precisely and intrestingly a **butterfly**. This name is based on the shape that happens halfway through your sorting process:
+
+![A half-sorted B stack's visualization](/static/data/posts/push-swap/0.png)
+> *woah so pretty*
+
+This shape is basically what allows us to keep our instruction count so low.  
+
+**Let's break it down.*
+
+### 🔨 the construction
+
+First, we need to aquire this beautiful structure of a stack.
+
+We'll try and push groups of values that fit in "boxes", for instance, `0-10` is the first box, `11-20` the second, etc.
+
+`TODO: bla bla bla - add more to this section`
+
+At the end of it, we should have something that resembles this kind of pattern:
+
+<video controls>
+    <source src="/static/data/posts/push-swap/1.mp4" type="video/mp4"/>
+</video>
+
+### 📚 putting it all together
+
+`TODO: this section is missing too`
+
+### 💡 further optimizations
+
+`TODO: max-1, up-to-max`
 
 ## 🔖 conclusion
 
-We did it! We made a useless program!! yay us!!!
+We did it! We made a useless program!! yay us (you)!!!
 
-`// TODO conclusion`
+`TODO: ramble about the project's grading`
 
 ---
 
@@ -229,7 +282,7 @@ Things left out may include:
 ## 🏷️ footnotes
 
 [^1]: gd reference hehehe
-
+[^2]: `butterfly sort` is the name i gave it because that's how it looks, idk if it's a real sorting algorithm truely used elsewhere lol
 
 [42angouleme]: https://www.42angouleme.fr/ "42 Angoulême website"
 [norm]: https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf "norm pdf"

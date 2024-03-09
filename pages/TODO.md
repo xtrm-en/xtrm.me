@@ -3,13 +3,11 @@ title: TODO page
 desc: where I want things to go (aka. my dumb silly ideas)
 ---
 
-`TODO`: make the navbar work. lol
-
-<h1 id="so-what-then">so what then?</h1>
+# so what then?
 
 *A lot of things actually...*
 
-This is a work in progress, and I'm not sure how much time I'll be able to put into it. But here's a list of things I'd like to do.
+This is (also) a work in progress, and I'm not sure how much time I'll be able to put into it. But here's a list of things I'd like to do.
 
 ## To actually do
 
@@ -17,7 +15,7 @@ This is a work in progress, and I'm not sure how much time I'll be able to put i
 - [x] posts layout
 - [x] `/posts/` page
 - [ ] `/projects/` page
-- [ ] `/links/` (which would double as a `/contact/`) page
+- [x] `/links/` (which would double as a `/contact/`) page
 - [x] prismjs integration for codeblocks
   - [ ] maybe switch to Shikiji?
 - [ ] improve rendering for some elements:
@@ -25,10 +23,14 @@ This is a work in progress, and I'm not sure how much time I'll be able to put i
   - [ ] blockquotes
 - [x] `/about/` page
 - [ ] Posts tag management
+  - [x] Posts can have tags
+  - [ ] There are tag-specific listing pages
+  - [ ] You can search for tags
 - [x] Posts pagination
 - [ ] Posts search
 - [ ] actually use data instead of hardcoding stuff
 - [x] better Lume/Rehype configs
+- [ ] CMS?
 - [ ] update main page when everything's kinda done-ish
 
 ## may be nice

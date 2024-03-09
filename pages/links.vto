@@ -1,0 +1,51 @@
+---
+title: Links & contact info
+desc: where, when, and how to find me
+links:
+- name: Twitter 
+  id: twitter
+  desc: mainly shitposting and funnies
+  link: https://twitter.com/xtrmdev
+  username: xtrmdev
+- name: YouTube
+  id: youtube
+  desc: I might post coding tutorials or livestream here, who knows 
+  link: https://youtube.com/@xtrmdev
+  username: xtrmdev
+- name: GitHub
+  id: github
+  desc: where all my current projects are stored
+  link: https://github.com/xtrm-en
+  username: xtrm-en
+- name: Codeberg
+  id: codeberg
+  desc: alternative git platform I keep as a backup
+  username: xtrm
+  link: https://codeberg.org/xtrm
+- name: Discord (server)
+  id: discord
+  desc: my discord server, mainly dead for now
+  link: https://stardust.enterprises/discord
+- name: Discord (user)
+  id: discord
+  desc: my discord user 
+  link: https://discord.com/users/593231228258222093
+  username: x.dev
+---
+
+<h1>You can find me over there</h1>
+{{ for i of links }}
+<div class="p-2 flex flex-row gap-4 bg-[#0f0f0f] mt-2 align-center rounded-lg"
+{{ if i.username }}
+title="Username: @{{ i.username }}" 
+{{ /if }}
+>
+    <a href="{{ i.link || '#' }}" class="h-14">
+        <img alt="{{ i.id }} logo" src="/static/assets/img/{{ i.id }}.jpg" class="h-full aspect-square max-w-min rounded">
+    </a>
+    <div class="flex flex-col gap-1">
+        <a href="{{ i.link || '#' }}" class="hover:text-x transition-all">{{ i.name }}</a>
+        <p class="m-0">{{ i.desc }}</p>
+    </div>
+</div>
+{{ /for }}
