@@ -2,6 +2,11 @@
 title: Links & contact info
 desc: where, when, and how to find me
 links:
+- name: Codeberg
+  id: codeberg
+  desc: primary code hosting platform i use 
+  username: xtrm
+  link: https://codeberg.org/xtrm
 - name: Twitter 
   id: twitter
   desc: mainly shitposting and funnies
@@ -9,19 +14,14 @@ links:
   username: xtrmdev
 - name: YouTube
   id: youtube
-  desc: I might post coding tutorials or livestream here, who knows 
+  desc: might post coding tutorials or livestream here, who knows 
   link: https://youtube.com/@xtrmdev
   username: xtrmdev
 - name: GitHub
   id: github
-  desc: where all my current projects are stored
+  desc: legacy platform i no longer use apart from contributions
   link: https://github.com/xtrm-en
   username: xtrm-en
-- name: Codeberg
-  id: codeberg
-  desc: alternative git platform I keep as a backup
-  username: xtrm
-  link: https://codeberg.org/xtrm
 - name: Discord (server)
   id: discord
   desc: my discord server, mainly dead for now
@@ -35,7 +35,7 @@ links:
 
 <h1>You can find me over there</h1>
 {{ for i of links }}
-<div class="p-2 flex flex-row gap-4 bg-[#0f0f0f] mt-2 align-center rounded-lg"
+<div class="p-2 flex flex-row gap-4 bg-[#050505] mt-2 align-center rounded-lg"
 {{ if i.username }}
 title="Username: @{{ i.username }}" 
 {{ /if }}
