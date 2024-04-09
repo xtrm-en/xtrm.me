@@ -152,7 +152,7 @@ if (env.X_ENV !== "dev") {
 site.use(remark({
   useDefaultPlugins: true,
   remarkPlugins: [emoji, a11yEmoji, ghAdmonitions],
-  rehypePlugins: [removeSrLabels, twemoji, slugs, rehypePrism, toc],
+  rehypePlugins: [removeSrLabels, [twemoji, {twemoji: { baseUrl: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/', size: '72x72' }}], slugs, rehypePrism, toc],
   rehypeOptions: {
     clobberPrefix: "",
   }
