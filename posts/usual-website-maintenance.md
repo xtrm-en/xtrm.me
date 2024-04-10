@@ -26,6 +26,8 @@ The front-page of the site will get updated soon to have more of a "lightweight 
 
 ## changes = breakage
 
+> because of course this happens
+
 This website also keeps coming back to bite me in the ass whenever I least expect it to.
 
 While trying to deploy my cool(tm) changes via the GitHub mirror repo that's hooked into Cloudflare Pages, it shit itself:
