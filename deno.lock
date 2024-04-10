@@ -4398,6 +4398,7 @@
     "https://deno.land/x/lume@v2.1.3/plugins/reading_info.ts": "74fd91be32099c8f9af2822731ef9036554bcd31a164c99c084de0300b468c8c",
     "https://deno.land/x/lume@v2.1.3/plugins/remark.ts": "e780bb6c054649dad076966319645109617b2a7a616bf77a3eaf369019527327",
     "https://deno.land/x/lume@v2.1.3/plugins/resolve_urls.ts": "05cbde52fbe88bb86a3a5d161920acff0c198eb22190853c53cdbbbf98e52edf",
+    "https://deno.land/x/lume@v2.1.3/plugins/robots.ts": "8d23ca983597606ed74be306e265a0f31032f3d19d334e3f54054c0b81674784",
     "https://deno.land/x/lume@v2.1.3/plugins/search.ts": "8ec3a8f082b8ff1532bbe8f8bf76dfaa2d0feab7c2ec5c824d0ccc044c26f640",
     "https://deno.land/x/lume@v2.1.3/plugins/sitemap.ts": "c33aba43239e39b0d085760ffc5c845421011c361bc08d9c2b07cf0c59ce145e",
     "https://deno.land/x/lume@v2.1.3/plugins/slugify_urls.ts": "df83d8b8b007bbd7b0dfb9788c458f35dd303a062fdf2175bdf2b53b8cfd2165",

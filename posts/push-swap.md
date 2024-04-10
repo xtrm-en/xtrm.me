@@ -231,7 +231,7 @@ Let's take *another* approach.
 Let us make a living creature, more precisely and intrestingly a **butterfly**. This name is based on the shape that happens halfway through your sorting process:
 
 ![A half-sorted B stack's visualization](/static/data/posts/push-swap/0.png)
-> *woah so pretty*
+> *woah so pretty, see how more interested your brain becomes when it sees funny picture*
 
 This shape is basically what allows us to keep our instruction count so low.  
 

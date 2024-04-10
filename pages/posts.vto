@@ -1,5 +1,5 @@
 ---
-title: Search posts
+title: posts
 desc: "View a listing of my cool posts over the years!"
 ---
 
@@ -11,8 +11,6 @@ desc: "View a listing of my cool posts over the years!"
   document.getElementById("searchbar-show").remove();
 </script>
 {{ include "..//_includes/layouts/comp/sep-full.vto" }}
-{{ else }}
-<p class="text-[#bfbfbf]">Searchbar is currently disabled since it's a Work In Progress.</p>
 {{ /if }}
 
 <div class="posts-container mt-6">
@@ -24,7 +22,7 @@ desc: "View a listing of my cool posts over the years!"
   </div>
 {{ /if }}
 {{ for post of posts }}
-  {{ set year = post.date |> date("Y") }}
+  {{ set year = post.date |> date("y") }}
   {{ if !years.includes(year) }}
     {{> years.push(year) }}
     <h2 class="mt-6" id="{{ year }}">{{ year }}</h2>

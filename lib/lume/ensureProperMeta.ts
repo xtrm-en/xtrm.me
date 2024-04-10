@@ -18,6 +18,9 @@ export default function ensurePageMeta(userOptions?: Options) {
   return (site: Site) => {
     site.preprocess(options.extensions, (pages) => {
       for (const page of pages) {
+        if (page.data["type"] === "project") {
+          continue;
+        }
         for (const meta of options.requiredMetas!) {
           if (!page.data[meta]) {
             throw new Error(`Missing required meta '${meta}' for page '${page.src.path}'`);

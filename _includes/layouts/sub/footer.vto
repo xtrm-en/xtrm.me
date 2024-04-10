@@ -8,7 +8,7 @@
 {{ set _link = it.git_commit }}
 {{ /if }}
 
-<footer class="text-xs mb-2 mt-10 w-full flex gap-2 flex-row">
+<footer class="text-xs font-mono mb-2 mt-10 w-full flex gap-2 flex-row">
   <div id="block1" class="flex-initial flex flex-col items-start max-w-72 flex-wrap p-2 gap-y-0 gap-px rounded-[6px] bg-[#050505]">
     {{# TODO: replace with data lol #}}
     <p class="m-0 mb-2 italic font-bold">cool corner:</p>
@@ -19,11 +19,11 @@
   </div>
   <div id="faketerm" class="text-sm flex-initial p-4 pt-3 rounded-[6px] bg-[#050505]">
     {{# TODO: replace with data lol #}}
-    <p class="m-0">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> copy.txt</p>
-    <p class="m-0">Copyright © 2024 - <a href="https://xtrm.me">x</a> &mdash; All rights reserved.</p>
-    <p class="m-0 mt-4">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> info.txt</p>
+    <p class="m-0">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> info.txt</p>
     <p class="m-0">Made with 💖, 🏳️‍🌈, <span class="text-[#5BCEFA]">si</span><span class="text-[#F5A9B8]">ll</span><span class="text-[#fff]">y</span><span class="text-[#F5A9B8]">ne</span><span class="text-[#5BCEFA]">ss</span>, 🐈, &amp; built w/ <a href="https://lume.land">lume.land</a>.</p>
     <p class="m-0">Deployed the {{ new Date() |> date("dd/MM/yyyy") }} at {{ new Date() |> date("hh:mm:ss") }} on {{ _env }} @ <a href="https://codeberg.org/xtrm/website/src/commit/{{ _link }}">{{ _head }}</a></p>
+    <p class="m-0 mt-4">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> copy.txt</p>
+    <p class="m-0">Copyright © 2024 - <a href="https://xtrm.me">x</a> &mdash; All rights reserved.</p>
   </div>
   <div id="block3" class="flex-1 p-4 pt-3 rounded-[6px] bg-[#050505]">
     <span id="noscript">

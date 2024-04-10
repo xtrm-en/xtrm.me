@@ -1,0 +1,25 @@
+---
+layout: layouts/base.vto
+---
+<div id="project">
+  <h1>{{ it.title || "missing title you goof" }}</h1>
+  <p>{{ it.desc || "missing desc dumbass" }} <br> <a href="#"><i>https://codeberg.org/tamere/test</i></a></p>
+  <br>
+  {{ include "./comp/sep-full.vto" }}
+  <div id="post-content" data-pagefind-body>{{ content |> safe }}</div>
+  {{ include "./comp/sep-full.vto" }}
+  <div id="post-footer" class="flex w-auto mt-6 justify-around">
+    {{ set prevPost = search.previousPage(it.url, "type=project") }}
+    <span class="text-[#4f4f4f]">
+    {{ if prevPost }}
+    ← <a href="{{ prevPost.url }}" rel="prev" class="text-[#bfbfbf] no-underline hover:underline">{{ prevPost.title || "Previous project" }}</a>
+    {{ /if }}
+    </span>
+    {{ set nextPost = search.nextPage(it.url, "type=project") }}
+    <span class="text-[#4f4f4f]">
+    {{ if nextPost }}
+    <a href="{{ nextPost.url }}" rel="next" class="text-[#bfbfbf] no-underline hover:underline">{{ nextPost.title || "Next project" }}</a> →
+    {{ /if }}
+    </span>
+  </div>
+</div>

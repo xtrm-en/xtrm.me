@@ -19,6 +19,8 @@ import feed from "lume/plugins/feed.ts";
 import pageFind from "lume/plugins/pagefind.ts";
 import minifyHTML from "lume/plugins/minify_html.ts";
 import remark from "lume/plugins/remark.ts";
+import robots from "lume/plugins/robots.ts";
+import sourceMaps from "lume/plugins/source_maps.ts";
 
 // Custom Lume plugins
 import dateInPath from "./lib/lume/dateInPath.ts";
@@ -77,6 +79,22 @@ site
   .use(mdShiftHeadings({
     filter: (page: Page) => page.data.type === "post"
   }))
+  .use(robots({
+    rules: [
+      {
+        userAgent: "GPTBot",
+        disallow: "/",
+      },
+      {
+        userAgent: "ChatGPT-User",
+        disallow: "/",
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+      },
+	],
+  }))
   .use(handleToc())
   .use(twemojiLoadSync())
   .use(tailwindcss({
@@ -85,12 +103,12 @@ site
         preflight: false,
       },
       theme: {
-        colors: {
-          x: {
-            DEFAULT: "#d259ea"
-          }
-        },
         extend: {
+          colors: {
+            x: {
+              DEFAULT: "#d259ea"
+            }
+          },
           keyframes: {
             boinge: {
               "0%": { transform: "scale(1, 1)" },
@@ -126,6 +144,7 @@ site
   .use(resolveUrls())
   .use(lightningCss())
   .use(minifyHTML())
+  .use(sourceMaps())
   .use(feed({
     output: ["/feed.json", "/feed.xml", "/feed.rss"],
     query: "type=post",
@@ -159,3 +178,7 @@ site.use(remark({
 }));
 
 export default site;
+
+console.log("Launching into space 🚀");
+
+// vim: ft=typescript sw=2 ts=2 sts=2 expandtab
