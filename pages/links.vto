@@ -11,29 +11,29 @@ links:
   link: https://blahaj.zone/@xtrm
   id: fedi
   desc: my main fediverse account :3
-  username: "@xtrm@blahaj.zone"
-- name: YouTube
-  id: youtube
-  desc: might post coding tutorials or livestream here, who knows 
-  link: https://youtube.com/@xtrmdev
-  username: xtrmdev
+  username: "xtrm@blahaj.zone"
 - name: Discord (user)
   id: discord
-  desc: my discord user 
+  desc: my discord user. <i>Matrix account is in the works</i> 
   link: https://discord.com/users/593231228258222093
   username: x.dev
+- name: YouTube
+  id: youtube
+  desc: might post coding tutorials or livestream here in the future, who knows 
+  link: https://youtube.com/@xtrmdev
+  username: xtrmdev
+- name: Email
+  id: email
+  desc: for business inquiries or anything else really
+  link: mailto:contact@xtrm.me
+- name: PGP Key
+  id: pgp
+  desc: "my public PGP key <i>(E10E 5715 71E7 63E4 1245 024E 8B06 E1A7 DCED 2740)</i>"
+  link: /static/assets/pgp/xtrm.asc
 - name: Discord (server)
   id: discord
   desc: my discord server, mainly dead for now
   link: https://stardust.enterprises/discord
-- name: Email
-  id: email
-  desc: for business inquiries or anything else
-  link: mailto:contact@xtrm.me
-- name: PGP
-  id: pgp
-  desc: my public PGP key
-  link: /static/assets/pgp/xtrm.asc
 - name: Twitter
   deprecated: true
   id: twitter
@@ -54,6 +54,9 @@ links:
 {{ if i.username }}
 title="Username: @{{ i.username }}" 
 {{ /if }}
+{{ if i.title }}
+title="{{ i.title }}"
+{{ /if }}
 >
     <a href="{{ i.link || '#' }}" class="h-14">
         <img alt="{{ i.id }} logo" src="/static/assets/img/{{ i.id }}.jpg" class="h-full aspect-square max-w-min rounded">
@@ -62,10 +65,12 @@ title="Username: @{{ i.username }}"
 		<div class="flex flex-row gap-2">
 			<a href="{{ i.link || '#' }}" class="hover:text-x transition-all">{{ i.name }}</a>
 			{{ if i.deprecated }}
-			<span title="I no longer use this platform" class="self-center text-xs bg-red-700 rounded-md max-h-4 p-1 pt-0">deprecated</span>
+			<span title="I no longer use this platform" class="self-center text-xs bg-red-700 rounded-md max-h-4 p-1 py-0">deprecated</span>
 			{{ /if }}
 		</div>
-        <p class="m-0">{{ i.desc }}</p>
+		<div class="flex flex-row gap-1">
+			<p class="m-0">{{ i.desc }}</p>
+		</div>
     </div>
 </div>
 {{ /for }}
