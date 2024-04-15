@@ -20,7 +20,7 @@ This is (also) a work in progress, and I'm not sure how much time I'll be able t
   - [ ] maybe switch to Shikiji?
 - [ ] improve rendering for some elements:
   - [ ] tables
-  - [ ] blockquotes
+  - [x] blockquotes
 - [x] `/about/` page
 - [ ] Posts tag management
   - [x] Posts can have tags
@@ -30,7 +30,7 @@ This is (also) a work in progress, and I'm not sure how much time I'll be able t
 - [ ] Posts search
 - [ ] actually use data instead of hardcoding stuff
 - [x] better Lume/Rehype configs
-- [ ] CMS?
+- [ ] LumeCMS
 - [ ] update main page when everything's kinda done-ish
 
 ## may be nice

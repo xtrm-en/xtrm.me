@@ -28,6 +28,7 @@ import ensureProperMeta from "./lib/lume/ensureProperMeta.ts";
 import fixupInlineCodeBlocks from "./lib/lume/fixupInlineCodeBlocks.ts";
 import handleToc from "./lib/lume/handleToc.ts";
 import mdShiftHeadings from "./lib/lume/mdShiftHeadings.ts";
+import relocateStyles from "./lib/lume/relocateStyles.ts";
 import cacheAssets from "https://deno.land/x/lume_cache_assets@0.0.9/mod.ts";
 
 // Remark / Rehype plugins
@@ -45,6 +46,7 @@ const env = dotenv.loadSync();
 
 // Begin Lume config
 const site = lume({
+  src: "./src",
   location: new URL("https://xtrm.me/"),
 });
 
@@ -177,8 +179,9 @@ site.use(remark({
   }
 }));
 
+site.use(relocateStyles());
 export default site;
 
 console.log("Launching into space 🚀");
 
-// vim: ft=typescript sw=2 ts=2 sts=2 expandtab
+// vim: sw=2 ts=2 sts=2 et
