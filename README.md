@@ -12,7 +12,7 @@ Serve locally: `deno task serve`
 
 This one's a bit of a mess:
 ```
-curl -fsSL https://deno.land/x/install/install.sh | sh && sed -i "s/develop$/$(git log -1 --format='%h')/" _data.yml && /opt/buildhome/.deno/bin/deno task build
+curl -fsSL https://deno.land/x/install/install.sh | sh && sed -i "s/develop$/$(git log -1 --format='%h')/" src/_data.yml && /opt/buildhome/.deno/bin/deno task build
 ```
 
 ## license
