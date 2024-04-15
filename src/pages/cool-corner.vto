@@ -1,0 +1,34 @@
+---
+title: the cool corner
+desc: where all the cool kids gather(tm)
+friend_badges:
+- name: checkcast
+  image: https://checkcast.xyz/image/badge/me/original.gif
+  url: https://checkcast.xyz
+- name: hytracer
+  image: https://hytracer.ink/button.png
+  url: https://hytracer.ink
+---
+
+<h2>welcome to the cool corner:tm:</h1>
+
+<blockquote>
+	<h3>my ✨ badge ✨</h3>
+	<p>feel free to include it wherever you like :3</p>
+	<a href="/"><img class="badge" src="/assets/img/button.png" alt="my badge" width="88" height="33"></a>
+</blockquote>
+
+<br>
+
+<blockquote>
+	<h3>friend badges</h3>
+	<p>check out those cuties</p>
+	<div id="friend-badges" class="flex flex-row gap-2">
+	{{ for badge of friend_badges }}
+		<a href="{{ badge.url }}"><!--
+			--><img class="badge" src="{{ badge.image }}" alt="{{ badge.name }}'s badge" width="88" height="33"><!--
+		--></a>
+	{{ /for }}
+	</div>
+	<p>if you want to be on here, just let me know 👀</p>
+</blockquote>
