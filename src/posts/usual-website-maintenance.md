@@ -10,13 +10,16 @@ tags:
 
 Heya fuckos it's been {length_of_time}. how yall been doin'?
 
+> **Update of the update** *(wow)*  
+> 16/04/2024 - links have been updated :3
+
 ## migration time! yippee
 
 I'm currently in the process of migrating most of my [GitHub](https://github.com/xtrm-en) stuff over to [Codeberg](https://codeberg.org/xtrm), the **vastly-superior** alternative *(according to my subjectively correct objective opinion of course)*.
 
 Speaking of migration, I've decided to fully commit to fediverse shinanigans by moving my old and unused [tech.lgbt profile](https://tech.lgbt/@xtrm) over to [blahaj.zone](https://blahaj.zone/@xtrm), finally switching over from [Mastodon](https://mastodon.org) to [MissKey](https://misskey-hub.net) (or, erm, rather [Sharkey](https://joinsharkey.org/), a cool[^1] fork).  Rest In Peace to my old [miruku.cafe account](https://miruku.cafe/@xtrm) to which I've lost my 2fa key lol.
 
-Finally, I'm also trying to setup proper a PGP setup, *and*, a an [ariadne id](https://ariadne.id). You can verify I'm really myself on [Keyoxide](#) *(link to appear soon)*
+Finally, I'm also trying to setup proper a PGP setup, *and*, a an [ariadne id](https://ariadne.id). You can verify I'm really myself on [Keyoxide](https://keyoxide.org/E10E571571E763E41245024E8B06E1A7DCED2740)
 
 ## website changes
 
