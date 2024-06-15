@@ -8,34 +8,40 @@
 {{ set _link = it.git_commit }}
 {{ /if }}
 
-<footer class="text-xs font-mono mb-2 mt-10 w-full flex gap-2 flex-col lg:flex-row-reverse">
-  <div id="block3" class="flex-1 p-2 sm:p-4 pt-2 sm:pt-3 rounded-[6px] bg-[#050505]">
+<footer class="text-xs font-mono pb-2 sm:mb-2 mt-10 w-full flex gap-2 flex-row">
+  <div id="faketerm" class="text-xs sm:text-sm p-2 sm:p-4 pt-2 sm:pt-3 sm:rounded-[6px] bg-[#050505] gap-4 w-screen overflow sm:w-auto sm:flex-grow">
+    {{# TODO: replace with data lol #}}
+    <div id="term-main">
+        <p class="m-0"><span class="hidden sm:inline">xtrm@<b>komet</b></span> <span class="text-[#3874ec]">~</span> $ <span class="text-[#00cd7e]">cat</span> info.txt</p>
+        <p class="m-0">Made with 💖, 🏳️‍🌈, <span class="text-[#5BCEFA]">si</span><span class="text-[#F5A9B8]">ll</span><span class="text-[#fff]">y</span><span class="text-[#F5A9B8]">ne</span><span class="text-[#5BCEFA]">ss</span>, 🐈, &amp; built w/ <a href="https://lume.land">lume.land</a>.</p>
+        <p class="m-0">Deployed the {{ new Date() |> date("dd/MM/yyyy") }} at {{ new Date() |> date("hh:mm:ss") }} on {{ _env }} @ <a href="https://codeberg.org/xtrm/website/src/commit/{{ _link }}">{{ _head }}</a></p>
+        <p class="m-0 mt-4"><span class="hidden sm:inline">xtrm@<b>komet</b></span> <span class="text-[#3874ec]">~</span> $ <span class="text-[#00cd7e]">cat</span> copy.txt</p>
+        <p class="m-0">Copyright © 2024 - <a href="https://xtrm.me">x</a> &mdash; All rights reserved.</p>
+    </div>
+    <!-- <div id="term-aside" class="max-w-full sm:max-w-32"> -->
+    <!--     <p class="m-0 mb-2 italic">check-out the <a class="font-bold" href="/pages/cool-corner.vto">cool corner</a> to check out who's <i>really</i> cool rn</p> -->
+    <!--     <p class="m-0 text-[.625rem]">maybe u next? 👉👈</p> -->
+    <!-- </div> -->
+  </div>
+  {{# don't even bother showing it on mobile, i fucked it past saving point with that *cool* animation #}}
+  <div id="block3" class="hidden md:block flex-1 p-2 sm:p-4 pt-2 sm:pt-3 rounded-[6px] bg-[#050505]">
     <span id="noscript">
-      {{ ":warning: I see you don't like javascript? hey. me neither. hate that shit :heart: *However*, stuff here that's reliant on it **will** dissapear (like search). cant say i didnt warn ya'" |> md }}
+      {{ ":warning: I see you don't like javascript? hey. me neither. hate that shit :heart: *However*, stuff here that's reliant on it **will** disappear (like the search feature). cant say i didnt warn ya'" |> md }}
     </span>
-    <script id="shilling" defer>
-      const ft = document.getElementById("faketerm");
-      ft.classList.remove("flex-initial");
-      ft.classList.add("flex-1");
-      
-      document.getElementById("block3").remove();
+    <script id="nonoscript">
+      window.onload = () => {
+        const ft = document.getElementById("faketerm");
+        ft.classList.remove("flex-initial");
+        ft.classList.add("flex-1");
+        
+        document.getElementById("block3").remove();
+      };
     </script> 
   </div>
-  <div id="faketerm" class="text-xs sm:text-sm flex flex-col sm:flex-row justify-between p-2 sm:p-4 pt-2 sm:pt-3 rounded-[6px] bg-[#050505] gap-4 w-auto">
-    {{# TODO: replace with data lol #}}
-	<div id="term-main">
-		<p class="m-0">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> info.txt</p>
-		<p class="m-0">Made with 💖, 🏳️‍🌈, <span class="text-[#5BCEFA]">si</span><span class="text-[#F5A9B8]">ll</span><span class="text-[#fff]">y</span><span class="text-[#F5A9B8]">ne</span><span class="text-[#5BCEFA]">ss</span>, 🐈, &amp; built w/ <a href="https://lume.land">lume.land</a>.</p>
-		<p class="m-0">Deployed the {{ new Date() |> date("dd/MM/yyyy") }} at {{ new Date() |> date("hh:mm:ss") }} on {{ _env }} @ <a href="https://codeberg.org/xtrm/website/src/commit/{{ _link }}">{{ _head }}</a></p>
-		<p class="m-0 mt-4">xtrm@<b>komet</b> <span class="text-[#3874ec]">~/</span> $ <span class="text-[#00cd7e]">cat</span> copy.txt</p>
-		<p class="m-0">Copyright © 2024 - <a href="https://xtrm.me">x</a> &mdash; All rights reserved.</p>
-	</div>
-	<div id="term-aside" class="max-w-full sm:max-w-32">
-		<p class="m-0 mb-2 italic">check-out the <a class="font-bold" href="/pages/cool-corner.vto">cool corner</a> to check out who's <i>really</i> cool rn</p>
-		<p class="m-0 text-[.625rem]">maybe u next? 👉👈</p>
-	</div>
-  </div>
-  <!--<div id="block1" class="flex-initial flex flex-col items-start max-w-72 flex-wrap p-2 gap-y-0 gap-px rounded-[6px] bg-[#050505]">
-    {{# TODO: replace with data lol #}}
-  </div>-->
+  <!-- <div id="block1" class="flex-initial flex flex-col items-start max-w-72 flex-wrap p-2 gap-y-0 gap-px rounded-[6px] bg-[#050505]"> -->
+  <!--   {{# TODO: replace with data lol #}} -->
+  <!-- </div> -->
 </footer>
+
+<!-- 
+vim: ts=2 sw=2 et cms=<!--%s-->

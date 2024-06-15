@@ -1,6 +1,5 @@
 ---
-project: website
-org: xtrm
+project: forgejo@codeberg.org:xtrm/website
 draft: true
 ---
 

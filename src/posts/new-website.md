@@ -1,6 +1,6 @@
 ---
 title: cool first post
-desc: we're so back.
+description: we're so back.
 date: 2024-01-07
 tags:
 - meta

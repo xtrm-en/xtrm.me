@@ -19,6 +19,7 @@ p, h1, h2, h3, h4, h5, h6, a {
 }
 h1, h2, h3, h4, h5, h6 {
 	margin-top: .125rem;
+	line-height: 100%;
 }
 * + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
 	margin-top: 2.5rem;
@@ -40,24 +41,59 @@ blockquote p {
 	margin-bottom: 0;
 }
 
-.task-list-item::marker {
-    content: "";
-}
-
-header nav li::marker {
-    content: "./";
-    color: #000;
+header nav li a .link-prefix {
+	max-width: 0px;
+	position: absolute;
+	opacity: 0;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 250ms;
 }
 
-header nav li:hover::marker {
-    color: #fff;
+header nav:hover a .link-text {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 250ms;
+	color: #2f2f2f;
 }
 
-footer > #block3 p {
-    margin: 0px;
+header nav li a:hover .link-text {
+	text-decoration: underline;
+	color: #d259ea;
+}
+
+header nav li a:hover {
+	padding-right: .5rem;
+	padding-left: 1rem;
+}
+
+header nav li a:hover .link-prefix {
+	max-width: 100%;
+	opacity: 1;
+	transform: translateX(-100%);
+}
+
+@keyframes fadeIn {
+	from {
+		max-width: 0px;
+		min-width: 0px;
+		max-height: 0px; 
+		opacity: 0;
+	}
+	to {
+		max-width: 33%;
+		min-width: 33%;
+		max-height: 100%; 
+		opacity: 1;
+	}
+}
+
+footer > #block3 {
+	max-width: 0px;
+	max-height: 0px; 
+	overflow: hidden;
+	opacity: 0;
+	animation: fadeIn .5s cubic-bezier(0, 0.55, 0.45, 1) .6s forwards;
 }
 
 img {
@@ -79,4 +115,12 @@ img.emoji {
 
 div#search {
     margin-bottom: 24px;
+}
+
+div.post:hover > a {
+	transform: translateX(.625rem);
+}
+
+div.post:hover > p {
+	color: #fff;
 }

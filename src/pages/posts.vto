@@ -1,6 +1,6 @@
 ---
 title: posts
-desc: "View a listing of my cool posts over the years!"
+description: "A listing of my cool posts about random *interesting* stuff"
 ---
 
 {{ set enableSearchbar = false }}
@@ -10,11 +10,11 @@ desc: "View a listing of my cool posts over the years!"
   document.getElementById("search").classList.remove("hidden");
   document.getElementById("searchbar-show").remove();
 </script>
-{{ include "..//_includes/layouts/comp/sep-full.vto" }}
+{{ include "../_includes/layouts/comp/sep-full.vto" }}
 {{ /if }}
 
 <div class="posts-container mt-6">
-{{ set posts = search.pages("type=post", "date=desc") }}
+{{ set posts = search.pages("type=post", "date=description") }}
 {{ set years = [] }}
 {{ if posts.length == 0 }}
   <div class="post">
@@ -27,9 +27,9 @@ desc: "View a listing of my cool posts over the years!"
     {{> years.push(year) }}
     <h2 class="mt-6" id="{{ year }}">{{ year }}</h2>
   {{ /if }}
-  <div class="post flex w-auto justify-between pl-10 hover:bg-[#0c0c0c] pr-2">
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <p class="m-0 text-[#4f4f4f]">{{ post.date |> date("dd/MM/yyyy") }}</p>
+  <div class="post flex w-auto justify-between pl-10 transition-all duration-200 hover:bg-[#0c0c0c] pr-2">
+    <a href="{{ post.url }}" class="transition-all duration-500">{{ post.title }}</a>
+    <p class="m-0 text-[#4f4f4f] transition-all duration-500">{{ post.date |> date("dd/MM/yyyy") }}</p>
   </div>
 {{ /for }}
 </div>

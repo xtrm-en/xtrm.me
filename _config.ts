@@ -70,7 +70,8 @@ site.copy("static", ".");
 
 site
   .use(ensureProperMeta({
-    requiredMetas: ["title", "desc"],
+    requiredMetas: ["title", "description"],
+    ignorePredicate: (page: Page) => page.data.type === "project",
   }))
   .use(dateInPath({
     dateFormat: "yyyy/MM",
@@ -157,7 +158,7 @@ site
     },
     items: {
       title: "=title",
-      description: "=desc",
+      description: "=description",
       content: "$ #post-content",
     },
   }));

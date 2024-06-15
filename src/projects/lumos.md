@@ -1,6 +1,6 @@
 ---
 title: Lumos ModLoader
-desc: i.e. how a concept took years off my life expectancy
+description: i.e. how a concept took years off my life expectancy
 draft: true
 ---
 

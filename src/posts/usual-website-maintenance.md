@@ -1,6 +1,6 @@
 ---
 title: Mid-april update
-desc: "spoiler: i'm doing some cool stuff :3"
+description: "spoiler: i'm doing some cool stuff :3"
 date: 2024-04-09 
 tags:
 - meta
@@ -35,7 +35,7 @@ This website also keeps coming back to bite me in the ass whenever I least expec
 
 While trying to deploy my cool(tm) changes via the GitHub mirror repo that's hooked into Cloudflare Pages, it shit itself:
 
-[![Screenshot of Cloudflare Pages dashboard showing a failed deployment because of twemoji's CDN being offline](/static/data/posts/usual-website-maintenance/1.png)](/static/data/posts/usual-website-maintenance/1.png)
+[![Screenshot of Cloudflare Pages dashboard showing a failed deployment because of twemoji's CDN being offline](/static/data/posts/usual-website-maintenance/cloudflare-brokey.png)](/static/data/posts/usual-website-maintenance/cloudflare-brokey.png)
 
 now one would look at this issue and go: i'll do my research, then stumble upon [#580](https://github.com/twitter/twemoji/issues/580), and try and change cdns! simple, right?
 
@@ -43,7 +43,7 @@ well as for the steps, I did all of those *(maybe not in the right order but sti
 
 my issue doesn't stem from the random breaking moment (as a programmer you're dealing with those on a daily basis, both in mind and in software), but rather this oddity:
 
-[![Screenshot of Cloudflare Pages dashboard telling me that I did, in fact, deploy a month ago (mid march)](/static/data/posts/usual-website-maintenance/2.png)](/static/data/posts/usual-website-maintenance/1.png)
+[![Screenshot of Cloudflare Pages dashboard telling me that I did, in fact, deploy a month ago (mid march)](/static/data/posts/usual-website-maintenance/cloudflare-not-that-brokey.png)](/static/data/posts/usual-website-maintenance/cloudflare-not-that-brokey.png)
 
 > **bro.**
 

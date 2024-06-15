@@ -1,6 +1,6 @@
 ---
 title: projects
-desc: "View a listing of my cool posts over the years!"
+description: "View a listing of my cool posts over the years!"
 ---
 
 # unfinished content ahead

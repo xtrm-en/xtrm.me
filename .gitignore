@@ -1,4 +1,5 @@
 _site/
+/errors.log
 .direnv
 .obsidian/
 .env

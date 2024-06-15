@@ -1,8 +1,7 @@
 ---
 title: TODO page
-desc: where I want things to go (aka. my dumb silly ideas)
+description: where I want things to go (aka. my dumb silly ideas)
 ---
-
 # so what then?
 
 *A lot of things actually...*
@@ -37,5 +36,3 @@ This is (also) a work in progress, and I'm not sure how much time I'll be able t
 - [ ] `/resume/` page
 - [x] Posts RSS? `/feed.json` & `/feed.xml`
 - [ ] Posts comments? (maybe via mastodon)
-
-

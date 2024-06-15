@@ -5,20 +5,34 @@ navbar_links:
 - link: /projects/
   name: projects
 - link: /posts/
-  name: blog posts
+  name: blog
 - link: /links/
-  name: socials & contact
+  name: socials
+- link: /contact/
+  name: contact
+max_links: 5
 ---
 
-<header class="text-base h-30 my-10 flex gap-4 sm:gap-16 flex-col sm:flex-row items-center justify-center">
-    <h2 class="max-w-48 text-right min-w-min"><a class="no-underline hover:text-x transition-all text-right" href="/"><span class="text-[4rem] font-serif italic">X</span>'s weird webspace</a></h2>
-    <nav class="self-start ml-[19.2px]">
-        <ul class="p-0 m-0">
-			{{ for i of navbar_links }}
-			<li class="w-max">
-				<a class="no-underline hover:underline hover:text-x transition-all" href="{{ i.link }}">{{ i.name }}</a>
-			</li>
-			{{ /for }}
-        </ul>
+<header class="text-base h-30 my-10 flex gap-4 sm:gap-16 flex-col sm:flex-row items-center">
+    <h3 class="max-w-48 text-center sm:text-right mb-4">
+		<a class="no-underline hover:text-x transition-all" href="/">
+			<span class="text-[3rem] font-serif italic">X</span>'s weird webspace
+		</a>
+	</h2>
+    <nav class="flex flex-col items-center">
+		{{ for i of Math.ceil(navbar_links.length / max_links) }}
+			{{ set start = (i - 1) * max_links }}
+			{{ set end = Math.min(i * max_links, navbar_links.length) }}
+			{{ set links = navbar_links.slice(start, end) }}
+			<ul class="p-0 m-0">
+				{{ for i of links }}
+				<li class="w-max inline p-2">
+					<a class="transition-all no-underline" href="{{ i.link }}"><!--
+						--><span class="link-prefix inline-block">./</span><span class="link-text">{{ i.name }}</span><!--
+					--></a>
+				</li>
+				{{ /for }}
+			</ul>
+		{{ /for }}
     </nav>
 </header>
