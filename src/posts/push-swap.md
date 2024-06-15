@@ -1,24 +1,23 @@
 ---
-title: "push_swap, a 42 project"
-desc: "Because some smartass thought `sort()` was too easy..."
-date: 2024-01-09
-link: https://github.com/27network/push_swap
-tags: 
-- C
-- 42-project
-- writeup
+title: 'push_swap, a 42 project'
+description: Because some smartass thought `sort()` was too easy...
+date: '2024-01-09'
+link: 'https://github.com/27network/push_swap'
+tags:
+  - C
+  - 42-project
+  - writeup
+  - sorting-algorithms
+draft: false
 ---
 ## 📖 prelude
-
-> :warning: **Disclaimer**: This article is a *big* WIP & unfinished.
 
 This is a project I did for my school [42 Angoulême][42angouleme].
 
 The goal was to parse a list of integers given as program arguments, and then sort them using a limited set of instructions.
 
 This would naturally involve some kind of sorting algorithm, although we would need to make it ourselves, or at least adapt a known one to the rules...  
-That may prove to be quite the challenge depending on which algorithm you thought of first :^) 
-##### *(bogosort ftw)*
+That may prove to be quite the challenge depending on which algorithm you thought of first :^)
 
 ## table of contents
 
@@ -65,7 +64,7 @@ typedef struct s_stack
 
 So let's break this down:
 
-- `values` is a pointer to the first element of the stack, which is an array of `int`s.
+- `values` is a pointer to the first element (bottom) of the stack, which is an array of `int`s.
 - `size` is the number of elements currently in the stack.
 - `capacity` is the maximum number of elements the stack can hold, basically how much we told `malloc` to give us.
 
@@ -76,7 +75,7 @@ A or B could be filled with `n` values at some point; this will ensure us that w
 
 Now that we have our structure, we need to implement the instructions, maybe by making simple functions?
 
-Let's start with `swap`:
+Let's start with `swap`. Since our implementation defines `values` as an array from which the `0`-th index represents the bottom of the stack, we'll need to get the top two values by accessing `stack->size - 1` and `stack->size - 2` respectively: 
 
 ```c
 void    swap(t_stack *stack)
@@ -87,9 +86,9 @@ void    swap(t_stack *stack)
   if (stack->size < 2)
     return ;
   // otherwise, swap the first two elements
-  tmp = stack->values[0];
-  stack->values[0] = stack->values[1];
-  stack->values[1] = tmp;
+  tmp = stack->values[stack->size - 1];
+  stack->values[stack->size - 1] = stack->values[stack->size - 2];
+  stack->values[stack->size - 2] = tmp;
 }
 ```
 
@@ -105,13 +104,13 @@ We could extend our code in two different ways:
 The first option is pretty bad, since we'd have a lot of `printf` calls, and would require *not forgetting any*.  
 The second option could work, but we'd have to pass which stack we're working on to the instruction function, which is also annoying.
 
-So what do we do now? It's not as if there's a better w-
+So what do we do now? It's not as if there's a better way right?
 
 ### 🖋️ the better way:tm:
 
 We can use function pointers!
 
-..ahem.
+*..ahem.*
 
 The first idea is definitely a no-go, but the second one is actually pretty good. Having the instruction execution also print the instruction itself would be pretty nice.
 
@@ -210,7 +209,7 @@ So far we've made:
 - a extensible instruction execution system
 - maybe a `checker` program
 
-What possibly could be left hahaha- oh fuck.
+What possibly could be left hahaha oh fuc-
 
 ## 🔢 the algorithm
 
@@ -224,40 +223,65 @@ You've probably already seen your standard insertion / selection sort in CS clas
 Divide and conquer is always a good sorting strategy, and is sure to give you the best results.  
 That being said, is it *really* necessary here?
 
-Let's take *another* approach.
+Let's take another approach.
 
 ### 🦋 butterfly sort [^2]
 
-Let us make a living creature, more precisely and intrestingly a **butterfly**. This name is based on the shape that happens halfway through your sorting process:
+Let us make a living creature, more precisely and intrestingly a **butterfly**. This name is based on the shape that happens halfway through this algorithm's sorting process:
+![A half-sorted B stack's visualization](/static/data/posts/push-swap/butterfly-sort-presort-result.png)
+> *woah so pretty, see how interested your brain becomes when it sees a funny color-y picture?*
 
-![A half-sorted B stack's visualization](/static/data/posts/push-swap/0.png)
-> *woah so pretty, see how more interested your brain becomes when it sees funny picture?*
-
-This shape is basically what allows us to keep our instruction count so low.  
-
-**Let's break it down.*
+This "V" shape is basically what allows us to keep our instruction count so low, by doing some sort of "pre-sorting" that does the heavy lifting.
 
 ### 🔨 the construction
 
 First, we need to aquire this beautiful structure of a stack.
 
-We'll try and push groups of values that fit in "boxes", for instance, `0-10` is the first box, `11-20` the second, etc.
+We'll try and find groups of values that fit in "boxes", and let's say we want 10 values per box. For example, let's say `0-9` is the first box, `10-19` the second, etc.
 
-`TODO: bla bla bla - add more to this section`
+We're gonna iterate sequentially: for each box, we want to lookup its numbers (0, 1, 2, 3, ...) and push them to stack B, but with the following twist: if the number is lower than the mid point of the box's values, push it at the bottom of stack B.
 
-At the end of it, we should have something that resembles this kind of pattern:
+What this means is after pushing to stack B, if the number is lower than the mid point, reverse rotate stack B.
 
-<video controls>
-    <source src="/static/data/posts/push-swap/1.mp4" type="video/mp4"/>
-</video>
+```c
+void    ps_butterfly_push_number(size_t n_box, size_t box_size, t_stack *a, t_stack *b)
+{
+    const size_t  start = n_box * box_size;
+    const size_t  end = ft_min((n_box + 1) * box_size, a->size);
+    const size_t  mid = ft_ceil((start + end) / 2.);
+
+    while (start < end)
+    {
+        // First we try and get the current number to the top
+        while (a->values[0] != start)
+            ps_insn_exec(RRA, a, b);
+        // This could of course be optimiezed (your move, youenn)
+
+        // We push our number to stack B
+        ps_insn_exec(PB, a, b);
+        // We then push it at the bottom of B if it's inferior to the midpoint
+        if (start < mid)
+            ps_insn_exec(RRB, a, b);
+
+        // Next item
+        start++;
+    }
+}
+```
+
+At the end of it, we should have something that resembles this kind of movement:
+
+<video src="/static/data/posts/push-swap/butterfly-sort-presort.mp4" controls></video>
 
 ### 📚 putting it all together
 
-`TODO: this section is missing too`
+Now the only thing missing is getting all those butterfly-ly goodness back into stack A to finalize our sorting.
 
-### 💡 further optimizations
+With the V shape our stack has, we can now apply basic number fetching, starting from the highest to the lowest, and push everything in order. The cool part is that since we have a staircase-like shape, the highest number will be in the highest "step", so pretty close instructions-wise. 
 
-`TODO: max-1, up-to-max`
+The reason we have this double staircase is so that we have fast access to both sides of the staircase simply by (reverse) rotating the stack.
+
+`TODO: this is still unfinished, 6 months after. damn.`
 
 ## 🔖 conclusion
 
@@ -277,12 +301,12 @@ some details or changes I made in my code to keep it as concise as possible, whi
 Things left out may include:
 - writing instructions to a `t_list` of `char *` instead of printing directly to allow running multiple algorithms and picking the shortest list of instructions
 - some finer butterfly sort optimizations
-- the [generic optimizer] that is the most boring thing in existence
+- the [generic optimizer] that's the result of being too lazy to properly optimize one's own algorithm
 
 ## 🏷️ footnotes
 
 [^1]: gd reference hehehe
-[^2]: `butterfly sort` is the name i gave it because that's how it looks, idk if it's a real sorting algorithm truely used elsewhere lol
+[^2]: `butterfly sort` is the name i gave it because that's how it looks, idk if it's a real sorting algorithm truely used anywhere else
 
 [42angouleme]: https://www.42angouleme.fr/ "42 Angoulême website"
 [norm]: https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf "norm pdf"
